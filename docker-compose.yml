@@ -1,0 +1,92 @@
+version: "3.2"
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ../v3-website/docker/init.sql:/docker-entrypoint-initdb.d/v3-website.sql
+
+  redis:
+    image: redis
+
+  dynamodb:
+    image: amazon/dynamodb-local
+
+  s3:
+    image: adobe/s3mock
+
+  website:
+    build:
+      context: ../v3-website
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - mysql
+      - redis
+      - dynamodb
+      - s3
+    environment:
+      - EXERCISM_ENV=development
+      - EXERCISM_DOCKER=true
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=password
+    ports:
+      - 3020:3020
+      - 3035:3035
+      - 3334:3334
+    volumes:
+      - ../v3-website:/usr/src/app
+      - /usr/src/app/node_modules
+      - type: tmpfs
+        target: /usr/src/app/tmp
+
+  tooling-orchestrator:
+    build:
+      context: ../tooling-orchestrator
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3021:3021
+    volumes:
+      - ../tooling-orchestrator:/usr/src/app
+    depends_on:
+      - website
+    environment:
+      - EXERCISM_ENV=development
+      - EXERCISM_DOCKER=true
+
+  tooling-invoker:
+    build:
+      context: ../tooling-invoker
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - tooling-orchestrator
+    environment:
+      - EXERCISM_ENV=development
+      - EXERCISM_DOCKER=true
+      - ORCHESTRATOR_HOST=tooling-orchestrator
+    volumes:
+      - ../tooling-invoker:/usr/src/app
+
+  csharp-test-runner:
+    build:
+      context: ../csharp-test-runner
+      dockerfile: Dockerfile.dev
+
+  adminer:
+    image: adminer:4.7.7-standalone
+    depends_on:
+      - mysql
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    ports:
+      - 8080:8080
+
+  portainer:
+    image: portainer/portainer:1.24.1
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
