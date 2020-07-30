@@ -32,6 +32,7 @@ services:
       - MYSQL_PORT=3306
       - MYSQL_USERNAME=root
       - MYSQL_PASSWORD=password
+      - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
     ports:
       - 3020:3020
       - 3035:3035
