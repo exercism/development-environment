@@ -61,10 +61,18 @@ services:
     volumes:
       - ../tooling-invoker:/usr/src/app
 
-  csharp-test-runner:
+  csharp-test-runner-base:
+    image: exercism/csharp-test-runner-base
     build:
       context: ../csharp-test-runner
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
+
+  csharp-test-runner:
+    build:
+      context: ./tooling
+      dockerfile: Dockerfile.csharp-test-runner.dev
+    depends_on:
+      - csharp-test-runner-base
 
   adminer:
     image: adminer:4.7.7-standalone
