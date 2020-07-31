@@ -4,7 +4,7 @@
 
 Run the following line-by-line. 
 
-```
+```bash
 # Make a directory to host all of Exercism within
 mkdir exercism
 
