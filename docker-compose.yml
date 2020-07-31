@@ -28,10 +28,6 @@ services:
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
-      - MYSQL_HOST=mysql
-      - MYSQL_PORT=3306
-      - MYSQL_USERNAME=root
-      - MYSQL_PASSWORD=password
       - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
     ports:
       - 3020:3020
@@ -49,12 +45,12 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 3021:3021
-    volumes:
-      - ../tooling-orchestrator:/usr/src/app
-      - ./cache:/usr/src/cache
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
+    volumes:
+      - ../tooling-orchestrator:/usr/src/app
+      - ./cache:/usr/src/cache
 
   tooling-invoker:
     build:
@@ -63,6 +59,7 @@ services:
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
+      - EXERCISM_INVOKE_VIA_DOCKER=true
     volumes:
       - ../tooling-invoker:/usr/src/app
       - ./cache:/usr/src/cache
