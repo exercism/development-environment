@@ -35,6 +35,7 @@ services:
       - 3334:3334
     volumes:
       - ../v3-website:/usr/src/app
+      - /usr/src/app/node_modules
       - type: tmpfs
         target: /usr/src/app/tmp
 
