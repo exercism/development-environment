@@ -21,6 +21,9 @@ git clone git@github.com:exercism/v3-website.git
 git clone git@github.com:exercism/tooling-orchestrator.git
 git clone git@github.com:exercism/tooling-invoker.git
 
+# You also temporarily need the csharp test runner
+git clone git@github.com:exercism/csharp-test-runner.git
+
 # Build everything in parallel
 cd v3-docker-compose
 docker-compose build --parallel
