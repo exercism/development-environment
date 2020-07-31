@@ -25,23 +25,22 @@ git clone git@github.com:exercism/tooling-invoker.git
 
 # This varies by OS/shell
 pushd v3-website
-mkdir cache
-BUNDLE_PATH=cache/bundler bundle install
-echo "--modules-folder cache/node_modules" > .yarnrc
-echo "--cache-folder cache/yarn" >> .yarnrc
+mkdir .cache
+BUNDLE_PATH=.cache/bundler bundle install
+echo "--modules-folder .cache/node_modules" > .yarnrc
+echo "--cache-folder .cache/yarn" >> .yarnrc
 yarn install
 rm .yarnrc
 popd
 
 pushd tooling-invoker
-mkdir cache
-BUNDLE_PATH=cache/bundler bundle install
-ln -s cache/bundler cache/bundler
+mkdir .cache
+BUNDLE_PATH=.cache/bundler bundle install
 popd
 
 pushd tooling-orchestrator
 mkdir cache
-BUNDLE_PATH=cache/bundler bundle install
+BUNDLE_PATH=.cache/bundler bundle install
 popd
 
 # Build everything in parallel
