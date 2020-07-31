@@ -28,10 +28,6 @@ services:
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
-      - MYSQL_HOST=mysql
-      - MYSQL_PORT=3306
-      - MYSQL_USERNAME=root
-      - MYSQL_PASSWORD=password
       - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
     ports:
       - 3020:3020
@@ -39,7 +35,6 @@ services:
       - 3334:3334
     volumes:
       - ../v3-website:/usr/src/app
-      - /usr/src/app/node_modules
       - type: tmpfs
         target: /usr/src/app/tmp
 
@@ -49,24 +44,20 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 3021:3021
-    volumes:
-      - ../tooling-orchestrator:/usr/src/app
-    depends_on:
-      - website
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
+    volumes:
+      - ../tooling-orchestrator:/usr/src/app
 
   tooling-invoker:
     build:
       context: ../tooling-invoker
       dockerfile: Dockerfile.dev
-    depends_on:
-      - tooling-orchestrator
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
-      - ORCHESTRATOR_HOST=tooling-orchestrator
+      - EXERCISM_INVOKE_VIA_DOCKER=true
     volumes:
       - ../tooling-invoker:/usr/src/app
 
