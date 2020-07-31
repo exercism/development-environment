@@ -1,4 +1,6 @@
-# Exercism v3 
+# Exercism v3 Local Environment
+
+This provides a local environment for running Exercism on Docker. It is very much a WIP.
 
 ## Local setup
 
