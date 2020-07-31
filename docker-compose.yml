@@ -35,7 +35,6 @@ services:
       - 3334:3334
     volumes:
       - ../v3-website:/usr/src/app
-      - ./cache:/usr/src/cache
       - type: tmpfs
         target: /usr/src/app/tmp
 
@@ -50,7 +49,6 @@ services:
       - EXERCISM_DOCKER=true
     volumes:
       - ../tooling-orchestrator:/usr/src/app
-      - ./cache:/usr/src/cache
 
   tooling-invoker:
     build:
@@ -62,7 +60,6 @@ services:
       - EXERCISM_INVOKE_VIA_DOCKER=true
     volumes:
       - ../tooling-invoker:/usr/src/app
-      - ./cache:/usr/src/cache
 
   csharp-test-runner:
     build:
