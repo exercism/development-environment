@@ -16,6 +16,17 @@ services:
   s3:
     image: adobe/s3mock
 
+  startup:
+    build:
+      context: ./startup/
+      dockerfile: Dockerfile
+    depends_on:
+      - dynamodb
+      - s3
+    environment:
+      - EXERCISM_ENV=development
+
+
   website:
     build:
       context: ../v3-website
@@ -43,6 +54,8 @@ services:
     build:
       context: ../tooling-orchestrator
       dockerfile: Dockerfile.dev
+    depends_on:
+      - startup
     ports:
       - 3021:3021
     environment:
@@ -55,7 +68,11 @@ services:
     build:
       context: ../tooling-invoker
       dockerfile: Dockerfile.dev
+    depends_on:
+      - startup
+      - tooling-orchestrator
     environment:
+      - TOOLING_WORKER_SLEEP=2
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
       - EXERCISM_INVOKE_VIA_DOCKER=true
