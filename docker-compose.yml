@@ -17,15 +17,15 @@ services:
     image: adobe/s3mock
 
   startup:
+    image: exercism-v3-startup
     build:
-      context: ./startup/
+      context: ./startup
       dockerfile: development.Dockerfile
     depends_on:
       - dynamodb
       - s3
     environment:
       - EXERCISM_ENV=development
-
 
   website:
     build:
