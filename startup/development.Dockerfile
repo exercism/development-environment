@@ -14,12 +14,7 @@ ENV EXERCISM_CONFIG_VERSION master
 ENV EXERCISM_DOCKER true
 ENV EXERCISM_ENV development
 
-COPY setup_aws.rb ./setup_aws.rb
-
-ENTRYPOINT git pull && \
-           git checkout ${EXERCISM_CONFIG_VERSION} -- . && \
+ENTRYPOINT git fetch --all && \
+           git checkout ${EXERCISM_CONFIG_VERSION} && \
            bundle exec setup_exercism_config && \
-           bundle exec ruby setup_aws.rb
-
-
-# ENTRYPOINT ./bin/worker
+           bundle exec setup_local_aws
