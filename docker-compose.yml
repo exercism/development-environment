@@ -19,7 +19,7 @@ services:
   startup:
     build:
       context: ./startup/
-      dockerfile: Dockerfile
+      dockerfile: development.Dockerfile
     depends_on:
       - dynamodb
       - s3
