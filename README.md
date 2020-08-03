@@ -4,7 +4,7 @@ This provides a local environment for running Exercism on Docker. It is very muc
 
 ## Local setup
 
-Run the following line-by-line. 
+Run the following line-by-line.
 
 ```bash
 # Make a directory to host all of Exercism within
@@ -17,6 +17,7 @@ cd exercism
 git clone git@github.com:exercism/v3-docker-compose.git
 
 # Clone the essential repos
+git clone git@github.com:exercism/config.git
 git clone git@github.com:exercism/v3-website.git
 git clone git@github.com:exercism/tooling-orchestrator.git
 git clone git@github.com:exercism/tooling-invoker.git
