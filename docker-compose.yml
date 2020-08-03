@@ -72,7 +72,6 @@ services:
       - startup
       - tooling-orchestrator
     environment:
-      - TOOLING_WORKER_SLEEP=2
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
       - EXERCISM_INVOKE_VIA_DOCKER=true
