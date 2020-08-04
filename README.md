@@ -17,7 +17,6 @@ cd exercism
 git clone git@github.com:exercism/v3-docker-compose.git
 
 # Clone the essential repos
-git clone git@github.com:exercism/config.git
 git clone git@github.com:exercism/v3-website.git
 git clone git@github.com:exercism/tooling-orchestrator.git
 git clone git@github.com:exercism/tooling-invoker.git

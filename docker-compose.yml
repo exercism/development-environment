@@ -82,6 +82,8 @@ services:
     volumes:
       - ../tooling-invoker:/usr/src/app
 
+  # this is only used to build the dependency for csharp-test-runner
+  # it will fail quickly and die when launched as part of the full stack
   csharp-test-runner-base:
     image: exercism/csharp-test-runner-base
     build:
@@ -94,6 +96,21 @@ services:
       dockerfile: Dockerfile.csharp-test-runner.dev
     depends_on:
       - csharp-test-runner-base
+
+  # this is only used to build the dependency for javascript-test-runner
+  # it will fail quickly and die when launched as part of the full stack
+  javascript-test-runner-base:
+    image: exercism/javascript-test-runner-base
+    build:
+      context: ../javascript-test-runner
+      dockerfile: Dockerfile
+
+  javascript-test-runner:
+    build:
+      context: ../javascript-test-runner
+      dockerfile: development_webserver.Dockerfile
+    depends_on:
+      - javascript-test-runner-base
 
   adminer:
     image: adminer:4.7.7-standalone
