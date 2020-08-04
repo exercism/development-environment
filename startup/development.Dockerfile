@@ -17,7 +17,7 @@ WORKDIR /usr/src/
 RUN git clone https://github.com/exercism/config.git exercism_config
 WORKDIR /usr/src/exercism_config
 RUN git config --global advice.detachedHead false && \
-    git checkout ${EXERCISM_CONFIG_VERSION}
+    git checkout v${EXERCISM_CONFIG_VERSION}
 
 RUN gem install bundler:${bundler_version} && \
     bundle install
