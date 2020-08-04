@@ -21,10 +21,13 @@ services:
     build:
       context: ./startup
       dockerfile: development.Dockerfile
+      args:
+        exercism_config_version: 0.29.0
     depends_on:
       - dynamodb
       - s3
     environment:
+      - EXERCISM_DOCKER=true
       - EXERCISM_ENV=development
 
   website:
