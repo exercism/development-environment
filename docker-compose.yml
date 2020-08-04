@@ -39,6 +39,7 @@ services:
       - redis
       - dynamodb
       - s3
+      - startup
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
