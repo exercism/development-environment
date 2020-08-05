@@ -1,5 +1,6 @@
 services:
   startup: true
+  website: true
   base: true
   tooling: true
   admin: true
@@ -7,6 +8,8 @@ services:
 
 configure:
   startup:
+    build: true
+  website:
     build: true
 
   javascript-test-runner-base:

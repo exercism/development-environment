@@ -46,9 +46,7 @@ git clone git@github.com:exercism/tooling-invoker.git
 cd v3-docker-compose
 ```
 
-You may need to edit `stack.yml` to build a custom Docker image of the service you are hacking on.  This is especially true if you're
-planning on modifying the dependencies (yarn, gems, etc) and
-not just the service source code. Dependencies are usually "baked" into the images at build time.
+You may need to edit `stack.yml` to build a custom Docker image of the service you are hacking on.  This is especially true if you're planning on modifying the dependencies (yarn, gems, etc) and not just the service source code. Dependencies are usually "baked" into the images at build time.
 
 ```yaml
 configure:

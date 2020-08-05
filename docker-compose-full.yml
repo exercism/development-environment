@@ -4,8 +4,7 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: password
-    volumes:
-      - ../v3-website/docker/init.sql:/docker-entrypoint-initdb.d/v3-website.sql
+      MYSQL_ROOT_HOST: '%'
 
   redis:
     image: redis
@@ -42,6 +41,7 @@ services:
       - s3
       - startup
     environment:
+      - DB_HOST=mysql
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
       - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
