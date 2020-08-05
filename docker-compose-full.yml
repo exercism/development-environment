@@ -33,7 +33,7 @@ services:
     image: exercism/website
     build:
       context: ../v3-website
-      dockerfile: Dockerfile.dev
+      dockerfile: dev.Dockerfile
     depends_on:
       - mysql
       - redis
