@@ -1,0 +1,36 @@
+services:
+  startup: true
+  base: true
+  tooling: true
+  admin: true
+  javascript-test-runner: true
+
+configure:
+  startup:
+    build: true
+
+  javascript-test-runner-base:
+    build: true
+  javascript-test-runner:
+    build: true
+    environment:
+      - BOOGER=321
+
+groups:
+  admin:
+    - adminer
+    - portainer
+  tooling:
+    - tooling-invoker
+    - tooling-orchestrator
+  test-runners:
+    - csharp-test-runner
+    - javascript-test-runner
+  base:
+    - startup
+    - redis
+    - dynamodb
+    - s3
+    - mysql
+
+
