@@ -1,9 +1,11 @@
 services:
-  startup: true
-  website: true
   base: true
+  website: true
   tooling: true
+  # disable to save RAM if you don't use portainer or adminer much
   admin: true
+  # add any specific components you'd like to work with here such
+  # as specific tracks runners/analyzers, etc.
   javascript-test-runner: true
 
 configure:
@@ -20,20 +22,19 @@ configure:
       - BOOGER=321
 
 groups:
+  base:
+    - startup
+    - redis
+    - dynamodb
+    - s3
   admin:
     - adminer
     - portainer
   tooling:
     - tooling-invoker
     - tooling-orchestrator
+  analyzers:
+    - none
   test-runners:
     - csharp-test-runner
     - javascript-test-runner
-  base:
-    - startup
-    - redis
-    - dynamodb
-    - s3
-    - mysql
-
-
