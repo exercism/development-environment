@@ -19,11 +19,11 @@ services:
     image: adobe/s3mock
     mem_limit: "500m"
 
-  startup:
-    image: exercism/startup
+  setup:
+    image: exercism/setup
     mem_limit: "250m"
     build:
-      context: ./startup
+      context: ./setup
       dockerfile: development.Dockerfile
       args:
         exercism_config_version: 0.30.0
@@ -44,7 +44,7 @@ services:
       - redis
       - dynamodb
       - s3
-      - startup
+      - setup
     environment:
       - DB_HOST=mysql
       - EXERCISM_ENV=development
@@ -67,7 +67,7 @@ services:
       context: ../tooling-orchestrator
       dockerfile: dev.Dockerfile
     depends_on:
-      - startup
+      - setup
     ports:
       - 3021:3021
     environment:
@@ -83,7 +83,7 @@ services:
       context: ../tooling-invoker
       dockerfile: dev.Dockerfile
     depends_on:
-      - startup
+      - setup
       - tooling-orchestrator
     environment:
       - EXERCISM_ENV=development

@@ -10,7 +10,7 @@ enabled:
   - javascript-test-runner
 
 configure:
-  startup:
+  setup:
     build: true
   website:
     build: true
@@ -28,7 +28,7 @@ configure:
 
 groups:
   core_services:
-    - startup
+    - setup
     - redis
     - dynamodb
     - s3

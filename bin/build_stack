@@ -56,7 +56,7 @@ end
 
 # represents the stack we wish to build as configued from the stack.yml file
 class Stack
-  REQUIRED_SERVICES = ["startup"].freeze
+  REQUIRED_SERVICES = ["setup"].freeze
 
   def initialize(stack, using:)
     @architecture = using
