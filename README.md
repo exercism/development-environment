@@ -27,7 +27,7 @@ cd v3-docker-compose
 # start with the default stack
 cp stack.default.yml stack.yml
 # edit stack.yml to enabled the services (runners, analyzers, you'll be using)
-./bin/build_pack
+./bin/build_stack
 
 # Build everything in parallel
 docker-compose build --parallel
