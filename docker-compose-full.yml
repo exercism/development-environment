@@ -1,22 +1,27 @@
-version: "3.2"
+version: "2.4"
 services:
   mysql:
     image: mysql:5.7
+    mem_limit: "1g"
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_ROOT_HOST: '%'
 
   redis:
     image: redis
+    mem_limit: "500m"
 
   dynamodb:
     image: amazon/dynamodb-local
+    mem_limit: "500m"
 
   s3:
     image: adobe/s3mock
+    mem_limit: "500m"
 
   startup:
     image: exercism/startup
+    mem_limit: "250m"
     build:
       context: ./startup
       dockerfile: development.Dockerfile
@@ -57,6 +62,7 @@ services:
 
   tooling-orchestrator:
     image: exercism/tooling-orchestrator
+    mem_limit: "250m"
     build:
       context: ../tooling-orchestrator
       dockerfile: dev.Dockerfile
@@ -72,6 +78,7 @@ services:
 
   tooling-invoker:
     image: exercism/tooling-invoker
+    mem_limit: "250m"
     build:
       context: ../tooling-invoker
       dockerfile: dev.Dockerfile
