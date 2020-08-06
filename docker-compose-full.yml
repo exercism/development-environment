@@ -74,7 +74,7 @@ services:
     image: exercism/tooling-invoker
     build:
       context: ../tooling-invoker
-      dockerfile: Dockerfile.dev
+      dockerfile: dev.Dockerfile
     depends_on:
       - startup
       - tooling-orchestrator
