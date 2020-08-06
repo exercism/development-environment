@@ -65,7 +65,7 @@ class Stack
   end
 
   def enabled_services
-    list = @stack[:services].keys.map { |name| resolve_group(name) }.flatten
+    list = @stack[:enabled].map { |name| resolve_group(name) }.flatten
     list.prepend(*REQUIRED_SERVICES)
     list.uniq
   end

@@ -1,12 +1,13 @@
-services:
-  base: true
-  website: true
-  tooling: true
+enabled:
+  # s3, dynamodb, redis, startup
+  - core_services
+  - website
+  - tooling
   # disable to save RAM if you don't use portainer or adminer much
-  admin: true
+  - admin
   # add any specific components you'd like to work with here such
   # as specific tracks runners/analyzers, etc.
-  javascript-test-runner: true
+  - javascript-test-runner
 
 configure:
   startup:
@@ -14,6 +15,10 @@ configure:
   website:
     build: true
 
+  tooling-orchestrator:
+    build: true
+  tooling-invoker:
+    build: true
   javascript-test-runner-base:
     build: true
   javascript-test-runner:
@@ -22,7 +27,7 @@ configure:
       - BOOGER=321
 
 groups:
-  base:
+  core_services:
     - startup
     - redis
     - dynamodb
