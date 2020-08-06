@@ -32,8 +32,7 @@ case "$service" in
     -it ${PREFIX}_website_1 /bin/bash
     ;;
 "rails")
-    docker exec --env SUDO_USER=x --env SUDO_PS1=x --env PS1="{^_^} website\n      \w % " \
-    -it ${PREFIX}_website_1 /bin/bash '-c' 'bundle exec rails console'
+    docker exec -it ${PREFIX}_website_1 /bin/bash '-c' 'bundle exec rails console'
     ;;
 "mysql")
     docker exec -it ${PREFIX}_mysql_1 mysql -ppassword
