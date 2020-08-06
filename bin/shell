@@ -9,6 +9,7 @@ help() {
     echo
     echo  - website
     echo  - rails
+    echo  - tmux
     echo  - mysql
     echo  - redis
     echo  - redis-cli
@@ -33,6 +34,9 @@ case "$service" in
     ;;
 "rails")
     docker exec -it ${PREFIX}_website_1 /bin/bash '-c' 'bundle exec rails console'
+    ;;
+"tmux")
+    docker exec -it ${PREFIX}_website_1 overmind 'c' 'server'
     ;;
 "mysql")
     docker exec -it ${PREFIX}_mysql_1 mysql -ppassword
