@@ -59,7 +59,7 @@ services:
     image: exercism/tooling-orchestrator
     build:
       context: ../tooling-orchestrator
-      dockerfile: Dockerfile.dev
+      dockerfile: dev.Dockerfile
     depends_on:
       - startup
     ports:
