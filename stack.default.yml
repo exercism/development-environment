@@ -10,10 +10,10 @@ enabled:
   - javascript-test-runner
 
 configure:
-  setup:
-    build: true
+  # setup:
+    # build: true
   website:
-    build: true
+    # build: true
     # change these (and ports below) to remap outside service ports
     environment:
       WEBPACKER_DEV_SERVER_PUBLIC: "localhost:9999"
@@ -23,16 +23,11 @@ configure:
       - 3020:3020 # rails, 3020 internal
       - 3035:9999 # webpack, 3035 internal
       - 3334:9998 # cable, 3334 internal
-  tooling-orchestrator:
-    build: true
-  tooling-invoker:
-    build: true
-  javascript-test-runner-base:
-    build: true
-  javascript-test-runner:
-    build: true
-    environment:
-      - BOOGER=321
+
+  # javascript-test-runner:
+  #   build: true
+  #   environment:
+  #     - BOOGER=321
 
 groups:
   core_services:
