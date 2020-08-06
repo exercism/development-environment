@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+function filterUp() {
+    grep -E -v 'is up-to|--remove-orphans'
+}
+
+cat setup/src/exercism_logo.txt
+echo
+
+./bin/build_stack
+# docker-compose build
+
+# create them first, and let the disk cool off
+docker-compose up --no-start 2>&1 | filterUp && sleep 1
+
+# them spool them up, this is in an effort to reduce what is happening
+# simultaneously and perhaps provide a more consistent startup experience
+docker-compose up -d 2>&1 | filterUp
+
+echo
+echo It might take just a minute for everything to fire up.
+echo
+echo "    http://localhost:3020/"

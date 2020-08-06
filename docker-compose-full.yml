@@ -120,7 +120,7 @@ services:
   javascript-test-runner:
     build:
       context: ../javascript-test-runner
-      dockerfile: development_webserver.Dockerfile
+      dockerfile: dev.Dockerfile
     depends_on:
       - javascript-test-runner-base
 
