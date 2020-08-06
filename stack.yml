@@ -14,7 +14,12 @@ configure:
     build: true
   website:
     build: true
-
+    environment:
+      WEBPACKER_DEV_SERVER_PUBLIC: "localhost:9999"
+    ports:
+      - 3020:3020
+      - 3035:9999
+      - 3334:3334
   tooling-orchestrator:
     build: true
   tooling-invoker:

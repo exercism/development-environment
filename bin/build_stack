@@ -26,13 +26,15 @@ end
 # represents a single Docker service that from the architecture and allows
 # configuring it with custom configuration
 class Service
-  DEFAULTS = { "build" => false }.with_indifferent_access
+  DEFAULTS = { "build" => false, "environment" => {} }.with_indifferent_access
 
   attr_reader :data
 
   def initialize(name, data)
     @name = name
     @data = data.deep_dup
+
+    @data[:environment] ||= {}
   end
 
   def dependencies
@@ -45,8 +47,22 @@ class Service
     # remove build from the final YAML if it's not requested
     @data.delete :build if image? && settings[:build] == false
     # `build` might be a hash which will be deep merged
-    without_build_boolean = settings.reject { |k, v| k == "build" && [true, false].include?(v)}
-    @data.deep_merge!(without_build_boolean)
+    settings.reject! { |k, v| k == "build" && [true, false].include?(v)}
+
+    @data[:environment] = merge_environment(@data[:environment], settings.delete(:environment))
+
+    @data.deep_merge!(settings)
+  end
+
+  # might be in array or hash from from docker-compose
+  def env_to_hash(environment)
+    return environment if environment.is_a?(Hash)
+
+    environment.to_h { |v| v.split("=", 2) }
+  end
+
+  def merge_environment(original, overlay)
+    env_to_hash(original).merge(env_to_hash(overlay)).with_indifferent_access
   end
 
   def image?
