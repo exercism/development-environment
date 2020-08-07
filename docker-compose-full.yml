@@ -24,7 +24,7 @@ services:
     mem_limit: "250m"
     build:
       context: ./setup
-      dockerfile: development.Dockerfile
+      dockerfile: dev.Dockerfile
       args:
         exercism_config_version: 0.30.0
     depends_on:
