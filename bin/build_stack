@@ -58,6 +58,12 @@ class Service
     @data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_missing? }
 
     @data.deep_merge!(settings)
+    cleanup
+  end
+
+  def cleanup
+    @data.delete(:volumes) if @data[:volumes].empty?
+    @data.delete(:environment) if @data[:environment].empty?
   end
 
   # might be in array or hash from from docker-compose
