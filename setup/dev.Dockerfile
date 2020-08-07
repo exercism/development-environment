@@ -29,4 +29,6 @@ ENTRYPOINT cat /etc/exercism_logo.txt && \
     echo && echo "Exercism v3" && echo && \
     echo "config gem: v${EXERCISM_CONFIG_VERSION}" && echo && \
     bundle exec setup_exercism_config && \
-    bundle exec setup_exercism_local_aws
+    bundle exec setup_exercism_local_aws && \
+    # sleep 10 so ./bin/start does not try to restart us
+    sleep 10
