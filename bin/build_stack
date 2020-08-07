@@ -1,11 +1,13 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'bundler/setup'
 require 'yaml'
 require "active_support/core_ext/hash/indifferent_access"
 require "active_support/core_ext/hash/deep_merge"
 require "active_support/core_ext/object/deep_dup"
+require "docker_compose/volume"
 
 # represents the whole archecture of Exercism (every possible service)
 # loaded from a single large Docker Compose file
@@ -35,6 +37,7 @@ class Service
     @data = data.deep_dup
 
     @data[:environment] ||= {}
+    @data[:volumes] ||= []
   end
 
   def dependencies
@@ -50,6 +53,9 @@ class Service
     settings.reject! { |k, v| k == "build" && [true, false].include?(v)}
 
     @data[:environment] = merge_environment(@data[:environment], settings.delete(:environment))
+    # prevent us from binding repos the user has not downloading which quickly breaks
+    # everything since now an empty folder is mounted in place of the containers source
+    @data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_missing? }
 
     @data.deep_merge!(settings)
   end
