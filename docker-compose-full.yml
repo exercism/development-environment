@@ -36,6 +36,7 @@ services:
 
   website:
     image: exercism/website
+    stop_grace_period: 1s
     build:
       context: ../v3-website
       dockerfile: dev.Dockerfile
