@@ -107,22 +107,11 @@ services:
     depends_on:
       - csharp-test-runner-base
 
-  # this is only used to build the dependency for javascript-test-runner
-  # it will fail quickly and die when launched as part of the full stack
-  javascript-test-runner-base:
-    image: exercism/javascript-test-runner-base
-    build:
-      context: ../javascript-test-runner
-      dockerfile: Dockerfile
-    volumes:
-      - ../javascript-test-runner:/opt/test-runner
-
   javascript-test-runner:
+    image: exercism/javascript-test-runner
     build:
       context: ../javascript-test-runner
       dockerfile: dev.Dockerfile
-    depends_on:
-      - javascript-test-runner-base
 
   adminer:
     image: adminer:4.7.7-standalone
