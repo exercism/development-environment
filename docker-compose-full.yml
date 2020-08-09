@@ -102,6 +102,7 @@ services:
       dockerfile: Dockerfile
 
   csharp-test-runner:
+    image: exercism/csharp-test-runner-server
     build:
       context: ./tooling
       dockerfile: Dockerfile.csharp-test-runner.dev
@@ -109,7 +110,7 @@ services:
       - csharp-test-runner-base
 
   javascript-test-runner:
-    image: exercism/javascript-test-runner
+    image: exercism/javascript-test-runner-server
     build:
       context: ../javascript-test-runner
       dockerfile: dev.Dockerfile
