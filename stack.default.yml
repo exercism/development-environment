@@ -12,6 +12,8 @@ enabled:
 configure:
   # setup:
     # build: true
+    # args:
+      # exercism_config_version: 0.34.0
   website:
     # build: true
     # change these (and ports below) to remap outside service ports
@@ -21,8 +23,8 @@ configure:
     # reconfigure the external ports to avoid conflicts
     ports:
       - 3020:3020 # rails, 3020 internal
-      - 3035:9999 # webpack, 3035 internal
-      - 3334:9998 # cable, 3334 internal
+      - 9999:3035 # webpack, 3035 internal
+      - 9998:3334 # cable, 3334 internal
 
   # javascript-test-runner-server:
   #   build: true
