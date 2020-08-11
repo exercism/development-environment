@@ -7,7 +7,7 @@ enabled:
   - admin
   # add any specific components you'd like to work with here such
   # as specific tracks runners/analyzers, etc.
-  - javascript-test-runner-server
+  - javascript-test-runner
 
 configure:
   # setup:
@@ -26,7 +26,7 @@ configure:
       - 9999:3035 # webpack, 3035 internal
       - 9998:3334 # cable, 3334 internal
 
-  # javascript-test-runner-server:
+  # javascript-test-runner:
   #   build: true
   #   environment:
   #     - BOOGER=321
@@ -46,5 +46,5 @@ groups:
   analyzers:
     - none
   test-runners:
-    - csharp-test-runner-server
-    - javascript-test-runner-server
+    - csharp-test-runner
+    - javascript-test-runner
