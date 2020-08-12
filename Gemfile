@@ -7,3 +7,7 @@ git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 # gem "rails"
 gem "activesupport"
 gem 'zeitwerk'
+
+gem 'rubocop'
+gem 'rubocop-minitest'
+gem 'rubocop-performance'

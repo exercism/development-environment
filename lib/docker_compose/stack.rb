@@ -1,7 +1,7 @@
 # Represents the stack we wish to build as configued from the stack.yml file
 module DockerCompose
   class Stack
-    REQUIRED_SERVICES = %q{setup}.freeze
+    REQUIRED_SERVICES = 'setup'.freeze
 
     def initialize(stack, using:)
       @architecture = using
