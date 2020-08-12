@@ -39,11 +39,16 @@ cp stack.default.yml stack.yml
 ./bin/start
 ```
 
-If you have previously installed any of Exercism's components, you might also need (or want) to update them. You can do this with:
+### Updating everything
+
+The first time you use `./bin/start` we will download the latest versions of all the Exercism components for you to use.
+When you want to upgrade those components, run:
 
 ```bash
 docker-compose pull
 ```
+
+If you face any issues getting started, we recommend running this step in case anything is cached locally from some previous installation.
 
 ### Logs
 
@@ -164,3 +169,13 @@ You can then run `./bin/start` as normal.
 
 Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile), you will need to rerun the build and start commands.
 
+## Stuck?
+
+Stuck running the Docker setup? Please open an issue in this repository, and we will try and help you fix things, and tweak things so other people don't face the same challenge.
+
+If you have an issue unrelated to this local Docker setup, please open an issue in the relevant repository (e.g. for the JavaScript Test Runner, use https://github.com/exercism/javascript-test-runner)
+If you are unsure where to open the issue, please use https://github.com/exercism/exercism.
+
+## Contributing to this repository
+
+We welcome contributions! Please open an issue explaining the problem(s) you are facing, or put together a Pull Request demonstrating your idea or solution. Thank you!
