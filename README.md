@@ -37,7 +37,7 @@ git clone git@github.com:exercism/v3-docker-compose.git
 cd v3-docker-compose
 
 # Create your "stack" - the collection of parts of Exercism you
-# want to run locally. For now simply copy the default file.
+# want to run locally. To start with, copy the default file.
 cp stack.default.yml stack.yml
 
 # Start everything
