@@ -70,7 +70,7 @@ docker-compose logs -f website
 
 ### Shelling into a container
 
-From time to time you may want to shell into a running container to run commands or check what is going on.
+From time to time you may want to access a shell on a running container to run commands or check what is going on.
 To shell into a running container you can use the provided `bin/shell` command.
 For example, to shell into the running `website` container, you would run:
 
