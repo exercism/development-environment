@@ -25,7 +25,7 @@ module DockerCompose
       data.delete :build if image? && settings[:build] == false
 
       # "build" might be a hash which will be deep merged
-      settings.reject! { |k, v| k == "build" && [true, false].include?(v)}
+      settings.reject! { |k, v| k == "build" && [true, false].include?(v) }
 
       data[:environment] = merge_environment(data[:environment], settings.delete(:environment))
 

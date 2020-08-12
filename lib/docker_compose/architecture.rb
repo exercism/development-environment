@@ -7,8 +7,8 @@ module DockerCompose
     end
 
     def services
-      @services ||= compose_data[:services].to_h do |name, data| 
-        [name, Service.new(name, data)] 
+      @services ||= compose_data[:services].to_h do |name, data|
+        [name, Service.new(name, data)]
       end
     end
 

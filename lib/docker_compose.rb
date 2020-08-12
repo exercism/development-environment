@@ -16,4 +16,3 @@ module DockerCompose
     stack.write_docker_compose
   end
 end
-
