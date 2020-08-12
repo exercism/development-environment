@@ -1,7 +1,6 @@
 # represents a docker volume hash or string
 module DockerCompose
   class Volume
-
     def initialize(data)
       @data = data
       @data = to_long_form(@data) if @data.is_a?(String)
