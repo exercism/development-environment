@@ -103,7 +103,7 @@ The `bin/start` script generates the `docker-compose.yml` from your `stack.yml` 
 ### stack.yml
 
 The `stack.yml` file is a Exercism-specific configuration file that allows you to select which components you want to run locally, and any configuration you want to do.
-We then take that configuration and do the hard-work of turning that into a `docker-compose.yml`.
+The `bin/start` script then takes that configuration and does the work of turning it into a `docker-compose.yml`.
 
 Every docker image you download takes up storage space, and every docker container you run takes up memory, so the `stack.yml` file allows to you ensure that you only run the things that are necessary for whichever part of Exercism you are working on.
 
