@@ -4,7 +4,10 @@ Hello 👋
 
 This repository will provide you with a local setup of Exercism that you can use to develop any part of the project.
 
-It is built using [Docker](https://www.docker.com/), which you need to install, but it does not require any Docker knowledge to use.
+It requires the following to install:
+- **[Docker](https://docs.docker.com/get-docker/):** Docker needs to be installed but no Docker knowledge is required. 
+- **[Ruby](https://www.ruby-lang.org/en/documentation/installation/):** Many of the scripts in this repository are written in Ruby. Any version 2+ is fine. Without Ruby, you will have to create your `docker-compose.yml` manually.
+- **Git:** In order to obtain this repository using the instructions below, you need `git` installed.
 
 Our aim is to get you to a working setup within 10-minutes from now (presuming you have a decent internet connection).
 It's also possible to get each piece of Exercism working on your local machine without this repository, but that will take lots more effort and work.
