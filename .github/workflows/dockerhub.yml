@@ -3,6 +3,8 @@ name: Push to DockerHub
 on:
   push:
     branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
   dockerhub:
@@ -11,6 +13,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set exercism config version
+        run: echo ::set-env name=EXERCISM_CONFIG_VERSION::$(grep 'exercism-config (' Gemfile.lock | grep -o '[0-9.]\+')
+
+      - name: Check exercism_config version
+        run: echo ${{ env.EXERCISM_CONFIG_VERSION }}
 
       - name: Build and push Docker images
         uses: docker/build-push-action@v1.1.0
@@ -21,3 +29,4 @@ jobs:
           tag_with_sha: true
           tags: latest
           dockerfile: setup/dev.Dockerfile
+          build_args: --build-arg exercism_config_version=${{ env.EXERCISM_CONFIG_VERSION }}

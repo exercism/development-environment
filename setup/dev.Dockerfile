@@ -40,13 +40,12 @@ ARG exercism_config_version
 
 ENV EXERCISM_CONFIG_VERSION=${exercism_config_version}
 
-
 # Copy over the binary gems from the gembuilder
 COPY --from=gembuilder /usr/local/lib/ruby/gems/2.6.0 /usr/local/lib/ruby/gems/2.6.0
 COPY --from=gembuilder /usr/local/bundle/ /usr/local/bundle
 COPY --from=gembuilder /ver /ver
 
-# utils
+# Utils
 COPY ./src/shell /
 COPY ./src/exercism_logo.txt /etc
 
