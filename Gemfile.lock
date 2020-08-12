@@ -8,9 +8,27 @@ GEM
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
     ast (2.4.1)
+    aws-eventstream (1.1.0)
+    aws-partitions (1.354.0)
+    aws-sdk-core (3.104.3)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.239.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-dynamodb (1.51.0)
+      aws-sdk-core (~> 3, >= 3.99.0)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.2.1)
+      aws-eventstream (~> 1, >= 1.0.2)
     concurrent-ruby (1.1.6)
+    exercism-config (0.38.0)
+      aws-sdk-dynamodb (~> 1.0)
+      mandate
+      zeitwerk
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
+    jmespath (1.4.0)
+    mandate (0.3.0)
     minitest (5.14.1)
     parallel (1.19.2)
     parser (2.7.1.4)
@@ -45,6 +63,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  exercism-config
   rubocop
   rubocop-minitest
   rubocop-performance
