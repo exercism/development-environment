@@ -21,6 +21,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  zeitwerk
 
 BUNDLED WITH
    2.1.4
