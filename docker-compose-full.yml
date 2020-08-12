@@ -1,31 +1,51 @@
-version: "3.2"
+version: "2.4"
 services:
   mysql:
     image: mysql:5.7
+    mem_limit: "1g"
     environment:
       MYSQL_ROOT_PASSWORD: password
-    volumes:
-      - ../v3-website/docker/init.sql:/docker-entrypoint-initdb.d/v3-website.sql
+      MYSQL_ROOT_HOST: '%'
 
   redis:
     image: redis
+    mem_limit: "500m"
 
   dynamodb:
     image: amazon/dynamodb-local
+    mem_limit: "500m"
 
   s3:
     image: adobe/s3mock
+    mem_limit: "500m"
+
+  setup:
+    image: exercism/setup
+    mem_limit: "250m"
+    build:
+      context: ./setup
+      dockerfile: dev.Dockerfile
+    depends_on:
+      - dynamodb
+      - s3
+    environment:
+      - EXERCISM_DOCKER=true
+      - EXERCISM_ENV=development
 
   website:
+    image: exercism/website
+    stop_grace_period: 1s
     build:
       context: ../v3-website
-      dockerfile: Dockerfile.dev
+      dockerfile: dev.Dockerfile
     depends_on:
       - mysql
       - redis
       - dynamodb
       - s3
+      - setup
     environment:
+      - DB_HOST=mysql
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
       - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
@@ -40,9 +60,13 @@ services:
         target: /usr/src/app/tmp
 
   tooling-orchestrator:
+    image: exercism/tooling-orchestrator
+    mem_limit: "250m"
     build:
       context: ../tooling-orchestrator
-      dockerfile: Dockerfile.dev
+      dockerfile: dev.Dockerfile
+    depends_on:
+      - setup
     ports:
       - 3021:3021
     environment:
@@ -52,9 +76,14 @@ services:
       - ../tooling-orchestrator:/usr/src/app
 
   tooling-invoker:
+    image: exercism/tooling-invoker
+    mem_limit: "250m"
     build:
       context: ../tooling-invoker
-      dockerfile: Dockerfile.dev
+      dockerfile: dev.Dockerfile
+    depends_on:
+      - setup
+      - tooling-orchestrator
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
@@ -62,6 +91,8 @@ services:
     volumes:
       - ../tooling-invoker:/usr/src/app
 
+  # this is only used to build the dependency for csharp-test-runner
+  # it will fail quickly and die when launched as part of the full stack
   csharp-test-runner-base:
     image: exercism/csharp-test-runner-base
     build:
@@ -69,11 +100,18 @@ services:
       dockerfile: Dockerfile
 
   csharp-test-runner:
+    image: exercism/csharp-test-runner-server
     build:
       context: ./tooling
       dockerfile: Dockerfile.csharp-test-runner.dev
     depends_on:
       - csharp-test-runner-base
+
+  javascript-test-runner:
+    image: exercism/javascript-test-runner-server
+    build:
+      context: ../javascript-test-runner
+      dockerfile: dev.Dockerfile
 
   adminer:
     image: adminer:4.7.7-standalone

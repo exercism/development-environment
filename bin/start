@@ -1,0 +1,39 @@
+#!/bin/bash
+set -eo pipefail
+
+STARTED_ONCE=.started_once
+
+function filterUp() {
+    grep -E -v 'is up-to|--remove-orphans'
+}
+
+cat setup/src/exercism_logo.txt
+echo
+
+./bin/build_stack
+# docker-compose build
+
+# create them first, and let the disk cool off
+docker-compose up --no-start 2>&1 | filterUp && sleep 1
+
+# some delay to allow s3/dynamo/setup to write the config
+if [ ! -f "$STARTED_ONCE" ]; then
+    docker-compose up -d setup 2>&1 | filterUp
+
+    echo -en "Waiting for pre-stack to boot [.....]\b\b\b\b\b\b"
+    for i in {1..5}
+    do
+       sleep 1 && echo -n "*"
+    done
+    echo "]"
+    # touch $STARTED_ONCE
+fi
+
+# them spool them up, this is in an effort to reduce what is happening
+# simultaneously and perhaps provide a more consistent startup experience
+docker-compose up -d 2>&1 | filterUp
+
+echo
+echo "It may take just a moment for everything to spool up."
+echo
+echo "    http://localhost:3020/"

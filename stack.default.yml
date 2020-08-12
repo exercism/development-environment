@@ -1,0 +1,50 @@
+enabled:
+  # s3, dynamodb, redis, startup
+  - core_services
+  - website
+  - tooling
+  # disable to save RAM if you don't use portainer or adminer much
+  - admin
+  # add any specific components you'd like to work with here such
+  # as specific tracks runners/analyzers, etc.
+  - javascript-test-runner
+
+configure:
+  # setup:
+    # build: true
+    # args:
+      # exercism_config_version: 0.34.0
+  website:
+    # build: true
+    # change these (and ports below) to remap outside service ports
+    environment:
+      WEBPACKER_DEV_SERVER_PUBLIC: "localhost:9999"
+      CABLE_URL: "ws://localhost:9998/cable"
+    # reconfigure the external ports to avoid conflicts
+    ports:
+      - 3020:3020 # rails, 3020 internal
+      - 9999:3035 # webpack, 3035 internal
+      - 9998:3334 # cable, 3334 internal
+
+  # javascript-test-runner:
+  #   build: true
+  #   environment:
+  #     - BOOGER=321
+
+groups:
+  core_services:
+    - setup
+    - redis
+    - dynamodb
+    - s3
+  admin:
+    - adminer
+    - portainer
+  tooling:
+    - tooling-invoker
+    - tooling-orchestrator
+  analyzers:
+    - none
+  test-runners:
+    - csharp-test-runner
+    - javascript-test-runner

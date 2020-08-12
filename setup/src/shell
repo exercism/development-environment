@@ -1,0 +1,16 @@
+#!/bin/bash
+# echo '  /--             --\'
+# echo ' ||                ||'
+# echo ' ||   ___    ___   ||'
+# echo ' ||  /   \  /   \  ||'
+# echo '<<                  >>'
+# echo ' ||     |    |     ||'
+# echo ' ||      \__/      ||'
+# echo ' ||                ||'
+# echo '  \--            --/'
+# echo
+
+DEFAULT=$PS1
+export PS1="{^_^} $CONTAINER_NAME\n      \w % "
+
+bash
