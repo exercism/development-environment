@@ -1,17 +1,26 @@
 # represents a docker volume hash or string
 module DockerCompose
   class Volume
+    attr_reader :source, :type
+
     def initialize(data)
-      @data = data
-      @data = to_long_form(@data) if @data.is_a?(String)
+      data = to_long_form(data) if data.is_a?(String)
+
+      @source = data[:source]
+      @type = data[:type]
     end
 
-    def source
-      @data[:source]
+    def bind_source_missing?
+      relative_bind? && !File.exist?(source)
     end
 
-    def type
-      @data[:type]
+    private
+    def relative_bind?
+      bind? && source.start_with?(".")
+    end
+
+    def bind?
+      type == "bind"
     end
 
     # WARN: This is incomplete: it only handles binds
@@ -27,19 +36,6 @@ module DockerCompose
       }.with_indifferent_access
       result[:read_only] = true if mode == "ro"
       result
-    end
-
-    def bind?
-      type == "bind"
-    end
-
-    def relative_bind?
-      bind? && source.start_with?(".")
-    end
-
-    def bind_source_missing?
-      # puts "looking for #{source}: #{File.exist?(source)}" if source
-      relative_bind? && !File.exist?(source)
     end
   end
 end

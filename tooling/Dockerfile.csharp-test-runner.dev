@@ -1,9 +1,0 @@
-FROM exercism/csharp-test-runner-base
-
-# Install Ruby
-RUN apk add build-base ruby ruby-dev 
-
-# Install the gems for the Ruby webserver
-RUN gem install --no-wrappers exercism-local-tooling-webserver
-
-ENTRYPOINT [ "exercism_local_tooling_webserver" ]
