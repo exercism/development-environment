@@ -9,6 +9,8 @@ It requires the following to install:
 - **[Ruby](https://www.ruby-lang.org/en/documentation/installation/):** Many of the scripts in this repository are written in Ruby. Any version 2+ is fine. Without Ruby, you will have to create your `docker-compose.yml` manually.
 - **Git:** In order to obtain this repository using the instructions below, you need `git` installed.
 
+**Windows users:** We recommend using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and running the commands in a WSL-enabled terminal.
+
 Our aim is to get you to a working setup within 10-minutes from now (presuming you have a decent internet connection).
 It's also possible to get each piece of Exercism working on your local machine without this repository, but that will take lots more effort and work.
 
@@ -68,9 +70,9 @@ For example, to tail the `website` logs:
 docker-compose logs -f website
 ```
 
-### Shelling into a container
+### Shelling into a component
 
-From time to time you may want to access a shell on a running container to run commands or check what is going on.
+You may want to access a shell on a running component to run commands or check what is going on.
 To access a shell on a running container you can use the provided `bin/shell` command.
 For example, to shell into the running `website` container, you would run:
 
@@ -84,6 +86,8 @@ To stop everything, run:
 ```
 docker-compose down
 ```
+
+Details for restarting individual components are explained below.
 
 ## What is actually going on?
 
@@ -105,7 +109,7 @@ The `bin/start` script generates the `docker-compose.yml` from your `stack.yml` 
 The `stack.yml` file is a Exercism-specific configuration file that allows you to select which components you want to run locally, and any configuration you want to do.
 The `bin/start` script then takes that configuration and does the work of turning it into a `docker-compose.yml`.
 
-Every docker image you download takes up storage space, and every docker container you run takes up memory, so the `stack.yml` file allows to you ensure that you only run the things that are necessary for whichever part of Exercism you are working on.
+Every Docker image you download takes up storage space, and every docker container you run takes up memory, so the `stack.yml` file allows to you ensure that you only run the things that are necessary for whichever part of Exercism you are working on.
 
 ## Advanced Usage
 
