@@ -4,14 +4,15 @@ Hello 👋
 
 This repository will provide you with a local setup of Exercism that you can use to develop any part of the project.
 
+Our aim is to get you to a working setup within 10 minutes from now, most of which will be spent downloading things, but if you have a slower internet connection, things may take longer to install.
+
 It requires the following to install:
-- **[Docker](https://docs.docker.com/get-docker/):** Docker needs to be installed but no Docker knowledge is required. 
+- **[Docker](https://docs.docker.com/get-docker/):** Docker needs to be installed but **no Docker knowledge is required**. 
 - **[Ruby](https://www.ruby-lang.org/en/documentation/installation/):** Many of the scripts in this repository are written in Ruby. Any version 2+ is fine. Without Ruby, you will have to create your `docker-compose.yml` manually.
 - **Git:** In order to obtain this repository using the instructions below, you need `git` installed.
 
 **Windows users:** We recommend using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and running the commands in a WSL-enabled terminal.
 
-Our aim is to get you to a working setup within 10-minutes from now (presuming you have a decent internet connection).
 It's also possible to get each piece of Exercism working on your local machine without this repository, but that will take lots more effort and work.
 
 ## Basic setup
@@ -47,7 +48,7 @@ cp stack.default.yml stack.yml
 ### Updating everything
 
 The first time `./bin/start` is run, it will download the latest versions of all the Exercism components for you to use.
-When you want to upgrade those components, which we advise doing regularly, run:
+When you want to upgrade those components — which we advise doing regularly — run:
 
 ```bash
 docker-compose pull
