@@ -108,10 +108,11 @@ services:
       - csharp-test-runner-base
 
   javascript-test-runner:
-    image: exercism/javascript-test-runner-server
+    image: exercism/javascript-test-runner
+    entrypoint: exercism_local_tooling_webserver
     build:
       context: ../javascript-test-runner
-      dockerfile: dev.Dockerfile
+      dockerfile: Dockerfile
 
   adminer:
     image: adminer:4.7.7-standalone
