@@ -5,7 +5,7 @@ services:
     mem_limit: "1g"
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_HOST: "%"
 
   redis:
     image: redis
@@ -113,6 +113,8 @@ services:
     build:
       context: ../javascript-test-runner
       dockerfile: Dockerfile
+    volumes:
+      - "../javascript-test-runner:/opt/test-runner"
 
   adminer:
     image: adminer:4.7.7-standalone
