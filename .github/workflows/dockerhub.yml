@@ -26,5 +26,6 @@ jobs:
           repository: exercism/setup
           tag_with_sha: true
           tags: latest
+          path: setup
           dockerfile: setup/dev.Dockerfile
           build_args: --build-arg exercism_config_version=${{ env.EXERCISM_CONFIG_VERSION }}

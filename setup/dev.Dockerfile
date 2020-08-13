@@ -52,12 +52,7 @@ COPY --from=gembuilder /usr/local/bundle/ /usr/local/bundle
 RUN true
 COPY --from=gembuilder /ver /ver
 
-# And again
-RUN true
 COPY ./src/shell /
-
-# And once more
-RUN true
 COPY ./src/exercism_logo.txt /etc
 
 ENTRYPOINT cat /etc/exercism_logo.txt && \
