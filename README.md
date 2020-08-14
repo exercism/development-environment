@@ -2,11 +2,11 @@
 
 ---
 
-# Exercism Local Environment
+# Exercism Development Environment
 
 Hello! 👋 
 
-This repository will provide you with a local setup of Exercism that you can use to develop any part of the project.
+This repository will provide you with Exercism's local development environment, which you can use to develop any part of the project.
 
 Our aim is to get you to a working setup within 10 minutes from now, most of which will be spent downloading things, but if you have a slower internet connection, things may take longer.
 
