@@ -183,9 +183,11 @@ Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile)
 
 No. 
 
-If you want to only work on a language track, without seeing it running in context o nthe website, you can just directly work on that repository. That is the most common way to work on tracks.
+If you want to only work on a language track, without seeing it running in context of the website, you can just directly work on that repository. In fact, that is the most common way to work on tracks.
 
-If you want to work on the website or tooling, you do not have to use Docker, but setting everything up and getting things playing nicely together locally will probably be challenging, and unlikely to be worth the investment of your time. As such, this is our official, supported method of working on Exercism.
+Similarly if you want to work on tooling (test runners, analyzers, representers, etc) and you are happy to develop them in isolation, you do not need to use this repository. Although you may choose to to see your work running in the context of the website.
+
+If you want to work on the various components of the website itself, then this is the official and only-supported way to work. However, you do not have to use it. You **can** set things up and get things playing nicely together locally, but this will probably be challenging, and unlikely to be worth the investment of your time. Instructions for each component can be found in the individual repositories, but we do not maintain instructions on how to piece them altogether.
 
 ## Stuck?
 
