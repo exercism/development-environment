@@ -1,4 +1,8 @@
-# Exercism v3 Local Environment
+**NOTE: This repository is part of Exercism v3 (launch target Q1 2021). It is not applicable for the current version of Exercism.**
+
+---
+
+# Exercism Local Environment
 
 Hello! 👋 
 
