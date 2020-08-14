@@ -17,7 +17,7 @@ help() {
     echo  - tooling-orchestrator
 }
 
-PREFIX=v3-docker-compose
+PREFIX=development-environment
 
 case "$service" in
 "" | "--help" | "-h")

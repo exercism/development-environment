@@ -34,10 +34,10 @@ mkdir exercism
 cd exercism
 
 # Clone this repository onto your computer
-git clone git@github.com:exercism/v3-docker-compose.git
+git clone git@github.com:exercism/development-environment.git
 
 # Move into the new directory
-cd v3-docker-compose
+cd development-environment
 
 # Create your "stack" - the collection of parts of Exercism you
 # want to run locally. To start with, copy the default file.
@@ -86,6 +86,7 @@ bin/shell website
 ### Stopping everything
 
 To stop everything, run:
+
 ```
 docker-compose down
 ```
@@ -133,7 +134,7 @@ cd exercism
 git clone git@github.com:exercism/javascript-test-runner.git
 
 # Move into the directory for *this* repo
-cd v3-docker-compose
+cd development-environment
 
 #
 # Check the component is listed in the "enabled" section of your stack.yml.

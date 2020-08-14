@@ -18,6 +18,8 @@ jobs:
       - name: Check exercism_config version
         run: echo ${{ env.EXERCISM_CONFIG_VERSION }}
 
+      - uses: satackey/action-docker-layer-caching@v0.0.5
+
       - name: Build and push Docker images
         uses: docker/build-push-action@v1.1.0
         with:
