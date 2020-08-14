@@ -8,7 +8,7 @@ Our aim is to get you to a working setup within 10 minutes from now, most of whi
 
 It requires the following to install:
 - **[Docker](https://docs.docker.com/get-docker/):** Docker needs to be installed but **no Docker knowledge is required**. 
-- **[Ruby](https://www.ruby-lang.org/en/documentation/installation/):** Many of the scripts in this repository are written in Ruby. Any version 2+ is fine. Without Ruby, you will have to create your `docker-compose.yml` manually.
+- **[Ruby](https://www.ruby-lang.org/en/documentation/installation/):** Many of the scripts in this repository are written in Ruby. Any version 2+ is fine. 
 - **Git:** In order to obtain this repository using the instructions below, you need `git` installed.
 
 **Windows users:** We recommend using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and running the commands in a WSL-enabled terminal.
@@ -176,6 +176,16 @@ docker-compose build tooling-invoker
 You can then run `./bin/start` as normal.
 
 Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile), you will need to rerun the build and start commands.
+
+## FAQs?
+
+### Do I have to use this to work on Exercism?
+
+No. 
+
+If you want to only work on a language track, without seeing it running in context o nthe website, you can just directly work on that repository. That is the most common way to work on tracks.
+
+If you want to work on the website or tooling, you do not have to use Docker, but setting everything up and getting things playing nicely together locally will probably be challenging, and unlikely to be worth the investment of your time. As such, this is our official, supported method of working on Exercism.
 
 ## Stuck?
 
