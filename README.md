@@ -1,10 +1,10 @@
 # Exercism v3 Local Environment
 
-Hello 👋
+Hello! 👋 
 
 This repository will provide you with a local setup of Exercism that you can use to develop any part of the project.
 
-Our aim is to get you to a working setup within 10 minutes from now, most of which will be spent downloading things, but if you have a slower internet connection, things may take longer to install.
+Our aim is to get you to a working setup within 10 minutes from now, most of which will be spent downloading things, but if you have a slower internet connection, things may take longer.
 
 It requires the following to install:
 - **[Docker](https://docs.docker.com/get-docker/):** Docker needs to be installed but **no Docker knowledge is required**. 
@@ -12,8 +12,6 @@ It requires the following to install:
 - **Git:** In order to obtain this repository using the instructions below, you need `git` installed.
 
 **Windows users:** We recommend using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and running the commands in a WSL-enabled terminal.
-
-It's also possible to get each piece of Exercism working on your local machine without this repository, but that will take lots more effort and work.
 
 ## Basic setup
 
