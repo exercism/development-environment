@@ -10,6 +10,8 @@ function filterUp() {
 cat setup/src/exercism_logo.txt
 echo
 
+bundle check || bundle install
+
 ./bin/build_stack
 # docker-compose build
 
