@@ -91,7 +91,7 @@ To stop everything, run:
 docker-compose stop
 ```
 
-Alternatively, to stop everything _and_ remove all data (like the database), run:
+Alternatively, to stop everything _and_ remove all data (including the database storage), run:
 
 ```bash
 docker-compose down
