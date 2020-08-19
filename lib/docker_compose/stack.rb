@@ -34,11 +34,29 @@ module DockerCompose
     end
 
     def resolve_dependencies(name)
-      architecture.services[name].dependencies
+      service_for(name).dependencies
     end
 
     def configuration_for(name)
-      stack[:configure][name] || {}
+      config = stack[:configure][name] || {}
+      config = configuration_for_tooling(config, name) if tooling_name?(name)
+      config
+    end
+
+    def configuration_for_tooling(config, name)
+      directory_exists = File.directory?("../#{name}")
+
+      config = config.clone
+
+      config[:image] = "exercism/#{name}" if tooling_name?(name)
+      config[:build] = { :context => "../#{name}", :dockerfile => "Dockerfile"} if directory_exists && config[:build]
+      config[:volumes] = ["../#{name}:#{tooling_volume_target(name)}"] if directory_exists
+      config
+    end
+
+    def tooling_volume_target(name)
+      dir = name.gsub(/(.+?)-(test-runner|analyzer|representer)$/, '\2')
+      "/opt/#{dir}"
     end
 
     def prepare
@@ -47,10 +65,19 @@ module DockerCompose
     end
 
     def add_service(name)
-      service = architecture.services[name]
+      service = service_for(name)
       service.override(configuration_for(name))
 
       data[:services][name] = service.data
+    end
+
+    def service_for(name)
+      name = "generic-tooling" if tooling_name?(name)
+      architecture.services[name]
+    end
+
+    def tooling_name?(name)
+      name.end_with?("test-runner", "analyzer", "representer")
     end
   end
 end
