@@ -17,39 +17,33 @@ help() {
     echo  - tooling-orchestrator
 }
 
-PREFIX=development-environment
-
 case "$service" in
 "" | "--help" | "-h")
     help
     ;;
 "redis")
     # hack a snazzy redis prompt despite it being a stock image
-    docker exec --env SUDO_USER=x --env SUDO_PS1=x --env PS1="{^_^} redis\n      \w % " \
-    -it ${PREFIX}_redis_1 bash
+    docker-compose exec --env SUDO_USER=x --env SUDO_PS1=x --env PS1="{^_^} redis\n      \w % " redis bash
     ;;
 "website")
-    docker exec --env SUDO_USER=x --env SUDO_PS1=x --env PS1="{^_^} website\n      \w % " \
-    -it ${PREFIX}_website_1 /bin/bash
+    docker-compose exec --env SUDO_USER=x --env SUDO_PS1=x --env PS1="{^_^} website\n      \w % " website /bin/bash
     ;;
 "rails")
-    docker exec -it ${PREFIX}_website_1 /bin/bash '-c' 'bundle exec rails console'
+    docker-compose exec website /bin/bash '-c' 'bundle exec rails console'
     ;;
 "tmux")
-    docker exec -it ${PREFIX}_website_1 overmind 'c' 'server'
+    docker-compose exec website overmind 'c' 'server'
     ;;
 "mysql")
-    docker exec -it ${PREFIX}_mysql_1 mysql -ppassword
+    docker-compose exec mysql mysql -ppassword
     ;;
 "redis-cli")
-    docker exec -it ${PREFIX}_redis_1 redis-cli
+    docker-compose exec redis redis-cli
     ;;
 "tooling-invoker")
-    docker exec --env PS1="{^_^} tooling-invoker\n      \w % " \
-    -it ${PREFIX}_tooling-invoker_1 /bin/bash
+    docker-compose exec --env PS1="{^_^} tooling-invoker\n      \w % " tooling-invoker /bin/bash
     ;;
 "tooling-orchestrator")
-    docker exec --env PS1="{^_^} tooling-orchestrator\n      \w % " \
-    -it ${PREFIX}_tooling-orchestrator_1 /bin/sh
+    docker-compose exec --env PS1="{^_^} tooling-orchestrator\n      \w % " tooling-orchestrator /bin/sh
     ;;
 esac
