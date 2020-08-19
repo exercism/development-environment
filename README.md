@@ -56,6 +56,12 @@ When you want to upgrade those components â€” which we advise doing regularly â€
 docker-compose pull
 ```
 
+You can also pass the `--pull` argument to `./bin/start`:
+
+```bash
+./bin/start --pull
+```
+
 If you face any issues getting started, we recommend running this step in case anything is cached locally from a previous installation.
 
 ### Logs
@@ -71,6 +77,12 @@ For example, to tail the `website` logs:
 
 ```bash
 docker-compose logs -f website
+```
+
+It is also possible to have container logs be output to the console. To enable this, pass the `--tail` argument to `./bin/start`:
+
+```bash
+./bin/start --tail
 ```
 
 ### Shelling into a component
@@ -184,7 +196,13 @@ docker-compose build tooling-invoker
 
 You can then run `./bin/start` as normal.
 
-Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile), you will need to rerun the build and start commands.
+Alternatively, you can skip the `docker-compose build` step and pass the `--build` flag to `./bin/start`:
+
+```bash
+./bin/start --build
+```
+
+Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile), you will need to rerun the build and start commands or run the start command with the `--build` flag.
 
 ## FAQs?
 

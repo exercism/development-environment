@@ -1,6 +1,27 @@
 #!/bin/bash
 set -eo pipefail
 
+for arg in "$@"
+do
+    case $arg in
+        -b|--build)
+        BUILD=1
+        shift
+        ;;
+        -p|--pull)
+        PULL=1
+        shift
+        ;;
+        -t|--tail)
+        TAIL=1
+        shift
+        ;;
+        *)
+        shift
+        ;;
+    esac
+done
+
 STARTED_ONCE=.started_once
 
 function filterUp() {
@@ -13,7 +34,14 @@ echo
 bundle check || bundle install
 
 ./bin/build_stack
-# docker-compose build
+
+if [ ! -z "$PULL" ]; then
+    docker-compose pull
+fi
+
+if [ ! -z "$BUILD" ]; then
+    docker-compose build
+fi
 
 # create them first, and let the disk cool off
 docker-compose up --no-start 2>&1 | filterUp && sleep 1
@@ -31,9 +59,13 @@ if [ ! -f "$STARTED_ONCE" ]; then
     # touch $STARTED_ONCE
 fi
 
+if [ -z "$TAIL" ]; then
+    COMPOSE_UP_ARGUMENTS="-d"
+fi
+
 # them spool them up, this is in an effort to reduce what is happening
 # simultaneously and perhaps provide a more consistent startup experience
-docker-compose up -d 2>&1 | filterUp
+docker-compose up $COMPOSE_UP_ARGUMENTS 2>&1 | filterUp
 
 echo
 echo "It may take just a moment for everything to spool up."
