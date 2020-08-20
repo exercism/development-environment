@@ -79,7 +79,7 @@ else
     echo
     echo -en "Waiting for everything to spool up ..."
 
-    for i in {1..20}
+    for i in {1..60}
     do
         if [ ! $(testWebsiteConnection) -eq 0 ]; then
             break
