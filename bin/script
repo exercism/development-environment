@@ -1,0 +1,56 @@
+#!/bin/bash
+
+service=$1
+script=$2
+
+help() {
+    echo "script [service] [script]"
+    echo
+    echo To execute a script on a service the service must be running.
+    echo The script to execute is 
+}
+
+case "$service" in
+"" | "--help" | "-h")
+    help
+    ;;
+"redis")
+    # hack a snazzy redis prompt despite it being a stock image
+    docker-compose exec --env SUDO_USER=x --env SUDO_PS1=x --env PS1="{^_^} redis\n      \w % " redis bash
+    ;;
+"website")
+    docker-compose exec --env SUDO_USER=x --env SUDO_PS1=x --env PS1="{^_^} website\n      \w % " website /bin/bash
+    ;;
+"rails")
+    docker-compose exec website /bin/bash '-c' 'bundle exec rails console'
+    ;;
+"tmux")
+    docker-compose exec website overmind 'c' 'server'
+    ;;
+"mysql")
+    docker-compose exec mysql mysql -ppassword
+    ;;
+"redis-cli")
+    docker-compose exec redis redis-cli
+    ;;
+"tooling-invoker")
+    docker-compose exec --env PS1="{^_^} tooling-invoker\n      \w % " tooling-invoker /bin/bash
+    ;;
+"tooling-orchestrator")
+    docker-compose exec --env PS1="{^_^} tooling-orchestrator\n      \w % " tooling-orchestrator /bin/sh
+    ;;
+esac
+
+
+
+handle_container_error() {
+    result=$?
+    if [ $result -ne 0 ]
+    then
+        echo
+        echo "Hint: If you're told the 'container is not running' you'll need to start it first:"
+        echo
+        echo "    % docker-compose up -d website"
+        exit $result
+    fi
+}
