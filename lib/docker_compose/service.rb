@@ -29,7 +29,7 @@ module DockerCompose
 
       data[:environment] = merge_environment(data[:environment], settings.delete(:environment))
 
-      # Prevent us from binding repos the user has not downloading which quickly breaks
+      # Prevent us from binding repos the user has not downloaded which quickly breaks
       # everything since now an empty folder is mounted in place of the containers source
       data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_missing? }
 
