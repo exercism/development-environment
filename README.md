@@ -50,7 +50,7 @@ cp stack.default.yml stack.yml
 ### Updating everything
 
 The first time `./bin/start` is run, it will download the latest versions of all the Exercism components for you to use.
-When you want to force updating to the latest version of those components — which we advise doing regularly — run:
+If you want to download and run the latest version of those components — which we advise doing regularly — run:
 
 ```bash
 ./bin/start --pull
