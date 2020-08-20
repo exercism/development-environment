@@ -1,6 +1,28 @@
 #!/bin/bash
 set -eo pipefail
 
+for arg in "$@"
+do
+    case $arg in
+        -b|--build)
+        BUILD=1
+        shift
+        ;;
+        -p|--pull)
+        PULL=1
+        shift
+        ;;
+        -t|--tail)
+        TAIL=1
+        shift
+        ;;
+        *)
+        echo "Unsupported argument: $arg"
+        exit 1
+        ;;
+    esac
+done
+
 STARTED_ONCE=.started_once
 
 function filterUp() {
@@ -13,7 +35,14 @@ echo
 bundle check || bundle install
 
 ./bin/build_stack
-# docker-compose build
+
+if [ ! -z "$PULL" ]; then
+    docker-compose pull
+fi
+
+if [ ! -z "$BUILD" ]; then
+    docker-compose build
+fi
 
 # create them first, and let the disk cool off
 docker-compose up --no-start 2>&1 | filterUp && sleep 1
@@ -31,11 +60,20 @@ if [ ! -f "$STARTED_ONCE" ]; then
     # touch $STARTED_ONCE
 fi
 
+echo ""
+echo "Starting stack with website running at http://localhost:3020..."
+echo ""
+
 # them spool them up, this is in an effort to reduce what is happening
 # simultaneously and perhaps provide a more consistent startup experience
-docker-compose up -d 2>&1 | filterUp
 
-echo
-echo "It may take just a moment for everything to spool up."
-echo
-echo "    http://localhost:3020/"
+if [ ! -z "$TAIL" ]; then
+    docker-compose up 2>&1 | filterUp
+else
+    docker-compose up -d 2>&1 | filterUp
+
+    echo
+    echo "It may take just a moment for everything to spool up."
+    echo
+    echo "    http://localhost:3020/"
+fi
