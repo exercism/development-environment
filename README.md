@@ -114,6 +114,8 @@ These Dockerfiles are stored within each component's repository (often named `de
 The code in this repository handles the creation of a `docker-compose.yml` and provides you with some wrapper scripts to run things.
 The `bin/start` script generates the `docker-compose.yml` from your `stack.yml` file, downloads the images from DockerHub and then starts them (via `docker-compose up`).
 
+Note: Docker for Windows by default stores its data on the `C:` drive, but this can be changed in the settings.
+
 ### stack.yml
 
 The `stack.yml` file is a Exercism-specific configuration file that allows you to select which components you want to run locally, and any configuration you want to do.
