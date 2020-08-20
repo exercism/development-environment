@@ -50,13 +50,7 @@ cp stack.default.yml stack.yml
 ### Updating everything
 
 The first time `./bin/start` is run, it will download the latest versions of all the Exercism components for you to use.
-When you want to upgrade those components — which we advise doing regularly — run:
-
-```bash
-docker-compose pull
-```
-
-You can also pass the `--pull` argument to `./bin/start`:
+When you want to force updating to the latest version of those components — which we advise doing regularly — run:
 
 ```bash
 ./bin/start --pull
@@ -191,18 +185,10 @@ configure:
 And then, to build it:
 
 ```bash
-docker-compose build tooling-invoker
-```
-
-You can then run `./bin/start` as normal.
-
-Alternatively, you can skip the `docker-compose build` step and pass the `--build` flag to `./bin/start`:
-
-```bash
 ./bin/start --build
 ```
 
-Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile), you will need to rerun the build and start commands or run the start command with the `--build` flag.
+Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile), you will need to rerun the start command with the `--build` flag.
 
 ## FAQs?
 
