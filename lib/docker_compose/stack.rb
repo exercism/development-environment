@@ -73,7 +73,8 @@ module DockerCompose
 
     def service_for(name)
       name = "generic-tooling" if tooling_name?(name)
-      architecture.services[name]
+      service = architecture.services[name]
+      Service.new(service.name, service.data)
     end
 
     def tooling_name?(name)

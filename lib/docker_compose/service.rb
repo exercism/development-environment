@@ -4,7 +4,7 @@ module DockerCompose
   class Service
     DEFAULTS = { build: false, environment: {} }.with_indifferent_access.freeze
 
-    attr_reader :data
+    attr_reader :name, :data
 
     def initialize(name, input_data)
       @name = name
