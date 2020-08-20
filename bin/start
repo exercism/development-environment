@@ -17,7 +17,8 @@ do
         shift
         ;;
         *)
-        shift
+        echo "Unsupported argument: $arg"
+        exit 1
         ;;
     esac
 done
