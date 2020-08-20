@@ -29,6 +29,10 @@ function filterUp() {
     grep -E -v 'is up-to|--remove-orphans'
 }
 
+function testWebsiteConnection() {
+	printf "GET / HTTP/1.1\r\nHost: localhost:3020\r\n\r\n" | nc -w 1 localhost 3020 | grep -c '<body>' || true
+}
+
 cat setup/src/exercism_logo.txt
 echo
 
@@ -73,7 +77,17 @@ else
     docker-compose up -d 2>&1 | filterUp
 
     echo
-    echo "It may take just a moment for everything to spool up."
+    echo -en "Waiting for everything to spool up ..."
+
+    for i in {1..60}
+    do
+        if [ ! $(testWebsiteConnection) -eq 0 ]; then
+            break
+        fi
+
+        echo -n "."
+    done
+
     echo
-    echo "    http://localhost:3020/"
+    echo "Website running at http://localhost:3020/"
 fi
