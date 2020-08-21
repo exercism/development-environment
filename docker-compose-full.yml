@@ -91,32 +91,14 @@ services:
     volumes:
       - ../tooling-invoker:/usr/src/app
 
-  generic-test-runner:
-    image: exercism/generic-test-runner
+  generic-tooling:
+    image: exercism/generic-tooling-image
     entrypoint: exercism_local_tooling_webserver
     build:
-      context: ../generic-test-runner
+      context: ../generic-tooling-build-context
       dockerfile: Dockerfile
     volumes:
-      - ../generic-test-runner:/opt/test-runner
-
-  generic-analyzer:
-    image: exercism/generic-analyzer
-    entrypoint: exercism_local_tooling_webserver
-    build:
-      context: ../generic-analyzer
-      dockerfile: Dockerfile
-    volumes:
-      - ../generic-analyzer:/opt/analyzer
-
-  generic-representer:
-    image: exercism/generic-representer
-    entrypoint: exercism_local_tooling_webserver
-    build:
-      context: ../generic-representer
-      dockerfile: Dockerfile
-    volumes:
-      - ../generic-representer:/opt/representer
+      - ../generic-tooling-source:/opt/generic-tooling-target
 
   adminer:
     image: adminer:4.7.7-standalone

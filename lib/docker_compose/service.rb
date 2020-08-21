@@ -69,14 +69,15 @@ module DockerCompose
       name.end_with?('test-runner', 'analyzer', 'representer') && !name.start_with?('generic')
     end
 
-    def templated_name
-      name.gsub(/(.+?)-(test-runner|analyzer|representer)/, 'generic-\2')
+    def template_tooling_name
+      name.gsub(/(.+?)-(test-runner|analyzer|representer)/, '\2')
     end
 
     def apply_template
-      data[:image] = data[:image].gsub(templated_name, name) if data[:image]
-      data[:build][:context] = data[:build][:context].gsub(templated_name, name) if data[:build][:context]
-      data[:volumes].map! { |volume| volume.gsub(templated_name, name) }
+      data[:image] = data[:image].gsub('generic-tooling-image', name) if data[:image]
+      data[:build][:context] = data[:build][:context].gsub('generic-tooling-build-context', name) if data[:build][:context]
+      data[:volumes].map! { |volume| volume.gsub('generic-tooling-source', name) }
+      data[:volumes].map! { |volume| volume.gsub('generic-tooling-target', template_tooling_name) }
     end
   end
 end

@@ -59,7 +59,7 @@ module DockerCompose
     end
 
     def service_name_for(name)
-      name.gsub(/(.+?)-(test-runner|analyzer|representer)/, 'generic-\2')
+      name.gsub(/.+?-(test-runner|analyzer|representer)/, 'generic-tooling')
     end
   end
 end
