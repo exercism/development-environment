@@ -11,11 +11,11 @@ module DockerCompose
     end
 
     def bind_source_missing?
-      bind? && !File.exists?(source)
+      bind? && !File.exist?(source)
     end
 
     def bind_source_is_directory?
-      bind? && Dir.exists?(source)
+      bind? && Dir.exist?(source)
     end
 
     private

@@ -65,7 +65,6 @@ module DockerCompose
     end
 
     private
-
     def templated_service?
       name.end_with?('test-runner', 'analyzer', 'representer') && !name.start_with?('generic')
     end
@@ -77,7 +76,7 @@ module DockerCompose
     def apply_template
       data[:image] = data[:image].gsub(templated_service_name, name) if data[:image]
       data[:build][:context] = data[:build][:context].gsub(templated_service_name, name) if data[:build][:context]
-      data[:volumes].map! {|volume| volume.gsub(templated_service_name, name) }
+      data[:volumes].map! { |volume| volume.gsub(templated_service_name, name) }
     end
   end
 end
