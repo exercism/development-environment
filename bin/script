@@ -9,6 +9,12 @@ help() {
     echo To execute a script on a service the service must be running.
     echo These are the services and scripts that can be run:
 
+    detect_and_print_available_scripts
+}
+
+detect_and_print_available_scripts() {
+    # iterate over the directories in the parent directory, which should be
+    # exercism repositories like v3-website, tooling-orchestrator, etc.
     find .. -maxdepth 1 -mindepth 1 -type d | sort | while read repo_dir; do
         docker_scripts_dir="$repo_dir/scripts/docker"
 
@@ -18,6 +24,7 @@ help() {
 
         print_service=true
 
+        # iterate over all the files in the repo's scripts/docker directory
         find $docker_scripts_dir -maxdepth 1 -mindepth 1 -type f | sort | while read script_file; do
             if [ $print_service ]; then
                 echo "$(basename $repo_dir)"
