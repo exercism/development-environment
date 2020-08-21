@@ -1,0 +1,94 @@
+#!/bin/bash
+
+service=$1
+script=$2
+
+help() {
+    echo "script [service] [script]"
+    echo
+    echo To execute a script on a service the service must be running.
+    echo
+    echo These are the services and scripts that can be run:
+
+    detect_and_print_available_scripts
+}
+
+detect_and_print_available_scripts() {
+    # iterate over the directories in the parent directory, which should be
+    # exercism repositories like v3-website, tooling-orchestrator, etc.
+    find .. -maxdepth 1 -mindepth 1 -type d | sort | while read repo_dir; do
+        docker_scripts_dir="$repo_dir/scripts/docker"
+
+        if [ ! -d $docker_scripts_dir ]; then
+            continue
+        fi
+
+        print_service=true
+
+        # iterate over all the files in the repo's scripts/docker directory
+        find $docker_scripts_dir -maxdepth 1 -mindepth 1 -type f | sort | while read script_file; do
+            if [ $print_service ]; then
+                echo "- $(basename $repo_dir)"
+                unset print_service
+            fi
+
+            echo "  - $(basename $script_file)"
+        done
+    done
+}
+
+run_script() {
+    if [ -z $script ]; then
+        echo "No script specified. Please specify the script as the second argument."
+        exit
+    fi
+
+    # The v3-website directory is different from the container name
+    if [ $service = "website" ]; then
+        service_directory="v3-website"
+    else
+        service_directory=$service
+    fi
+
+    script_path="../$service_directory/scripts/docker/$script"
+
+    if [ ! -f $script_path ]; then
+        echo "Could not find the '$script' script for the '$service' service."
+        exit 1
+    fi
+
+    # Strip any comments (such as the shebang)
+    script_contents=$(cat $script_path | sed /^\#/d)
+
+    # Excute the script
+    docker-compose exec \
+        -e EXERCISM_DOCKER=true \
+        -e EXERCISM_ENV=test \
+        $service \
+        $script_contents
+
+    handle_container_error
+}
+
+handle_container_error() {
+    result=$?
+    if [ $result -ne 0 ]
+    then
+        echo
+        echo "Hint: If you're told the 'container is not running' you'll need to start it first:"
+        echo
+        echo "    % docker-compose up -d $service"
+        exit $result
+    fi
+}
+
+case "$service" in
+"" | "--help" | "-h")
+    help
+    ;;
+*)
+    run_script
+    ;;
+esac
+
+
