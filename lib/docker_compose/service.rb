@@ -75,7 +75,9 @@ module DockerCompose
 
     def apply_template
       data[:image] = data[:image].gsub('generic-tooling-image', name) if data[:image]
-      data[:build][:context] = data[:build][:context].gsub('generic-tooling-build-context', name) if data[:build][:context]
+      if data[:build][:context]
+        data[:build][:context] = data[:build][:context].gsub('generic-tooling-build-context', name)
+      end
       data[:volumes].map! { |volume| volume.gsub('generic-tooling-source', name) }
       data[:volumes].map! { |volume| volume.gsub('generic-tooling-target', template_tooling_name) }
     end
