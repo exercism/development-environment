@@ -2,9 +2,9 @@
 # configuring it with custom configuration
 module DockerCompose
   class Service
-    DEFAULTS = { build: false, environment: {} }.with_indifferent_access.freeze
+    DEFAULTS = { build: false, source: false, environment: {} }.with_indifferent_access.freeze
 
-    attr_reader :data
+    attr_reader :name, :data
 
     def initialize(name, input_data)
       @name = name
@@ -12,6 +12,8 @@ module DockerCompose
 
       data[:environment] ||= {}
       data[:volumes] ||= []
+
+      apply_template if templated?
     end
 
     def dependencies
@@ -29,9 +31,12 @@ module DockerCompose
 
       data[:environment] = merge_environment(data[:environment], settings.delete(:environment))
 
-      # Prevent us from binding repos the user has not downloading which quickly breaks
+      # Prevent us from binding repos the user has not downloaded which quickly breaks
       # everything since now an empty folder is mounted in place of the containers source
       data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_missing? }
+
+      # Don't map the source code of container's repository unless "source" is true
+      data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_is_directory? unless settings[:source] }
 
       data.deep_merge!(settings)
 
@@ -39,6 +44,7 @@ module DockerCompose
     end
 
     def cleanup
+      data.delete(:source)
       data.delete(:volumes) if data[:volumes].empty?
       data.delete(:environment) if data[:environment].empty?
     end
@@ -56,6 +62,24 @@ module DockerCompose
 
     def image?
       data[:image]
+    end
+
+    private
+    def templated?
+      name.end_with?('test-runner', 'analyzer', 'representer') && !name.start_with?('generic')
+    end
+
+    def template_tooling_name
+      name.gsub(/(.+?)-(test-runner|analyzer|representer)/, '\2')
+    end
+
+    def apply_template
+      data[:image] = data[:image].gsub('generic-tooling-image', name) if data[:image]
+      if data[:build][:context]
+        data[:build][:context] = data[:build][:context].gsub('generic-tooling-build-context', name)
+      end
+      data[:volumes].map! { |volume| volume.gsub('generic-tooling-source', name) }
+      data[:volumes].map! { |volume| volume.gsub('generic-tooling-target', template_tooling_name) }
     end
   end
 end

@@ -11,14 +11,14 @@ module DockerCompose
     end
 
     def bind_source_missing?
-      relative_bind? && !File.exist?(source)
+      bind? && !File.exist?(source)
+    end
+
+    def bind_source_is_directory?
+      bind? && Dir.exist?(source)
     end
 
     private
-    def relative_bind?
-      bind? && source.start_with?(".")
-    end
-
     def bind?
       type == "bind"
     end

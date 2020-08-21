@@ -133,12 +133,7 @@ Every Docker image you download takes up storage space, and every docker contain
 
 ### Working on certain components of the architecture
 
-In order to working on a specific component of Exercism's architecture, you will need to have the relevant git repository downloaded locally.
-
-Presuming you don't change the directory name from the repo name on GitHub, running `./bin/start` will mount the locally checked out repository in the Docker container.
-This means any changes you make to the local filesystem are reflected within the Docker container.
-
-For example, if you wanted to work on the `javascript-test-runner`, you might do the following:
+In order to working on a specific component of Exercism's architecture, you will need to have the relevant git repository downloaded locally. For example, if you wanted to work on the `javascript-test-runner`, you might do the following:
 
 ```bash
 # Start in your general Exercism directory (the first you made in the instructions above)
@@ -146,17 +141,30 @@ cd exercism
 
 # Clone the relevant repository
 git clone git@github.com:exercism/javascript-test-runner.git
+```
 
+The next step is to navigate to the `development-environment` directory:
+
+```bash
 # Move into the directory for *this* repo
 cd development-environment
-
-#
-# Check the component is listed in the "enabled" section of your stack.yml.
-#
-
-# Run the bin/start command
-./bin/start
 ```
+
+Now edit the `stack.yml` file to both enable the component and set its `source` configuration option to `true`:
+
+```yaml
+# stack.yml
+
+enabled:
+  - javascript-test-runner
+
+configure:
+  javascript-test-runner:
+    source: true
+```
+
+Running `./bin/start` will now mount the locally checked out repository in the Docker container.
+This means any changes you make to the local filesystem are reflected within the Docker container.
 
 Depending on the reload-behaviour of the component you are working, you may need to restart the component after changes.
 For example, the Website live-updates any changes made to the code as Rails applications and designed to do so, but the Tooling Invoker does not as it is a more simple Ruby application.

@@ -12,10 +12,12 @@ enabled:
 configure:
   # setup:
     # build: true
+  #   source: true
     # args:
       # exercism_config_version: 0.34.0
   website:
     # build: true
+    # source: true
     # change these (and ports below) to remap outside service ports
     environment:
       WEBPACKER_DEV_SERVER_PUBLIC: "localhost:9999"
@@ -28,6 +30,7 @@ configure:
 
   # javascript-test-runner:
   #   build: true
+  #   source: true
   #   environment:
   #     - BOOGER=321
 

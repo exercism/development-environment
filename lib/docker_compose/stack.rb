@@ -34,7 +34,7 @@ module DockerCompose
     end
 
     def resolve_dependencies(name)
-      architecture.services[name].dependencies
+      service_for(name).dependencies
     end
 
     def configuration_for(name)
@@ -47,10 +47,19 @@ module DockerCompose
     end
 
     def add_service(name)
-      service = architecture.services[name]
+      service = service_for(name)
       service.override(configuration_for(name))
 
       data[:services][name] = service.data
+    end
+
+    def service_for(name)
+      service = architecture.services[service_name_for(name)]
+      Service.new(name, service.data)
+    end
+
+    def service_name_for(name)
+      name.gsub(/.+?-(test-runner|analyzer|representer)/, 'generic-tooling')
     end
   end
 end

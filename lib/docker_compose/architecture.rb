@@ -1,4 +1,4 @@
-# Represents the whole archecture of Exercism (every possible service)
+# Represents the whole architecture of Exercism (every possible service)
 # loaded from a single large Docker Compose file
 module DockerCompose
   class Architecture
