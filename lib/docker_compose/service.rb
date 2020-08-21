@@ -13,7 +13,7 @@ module DockerCompose
       data[:environment] ||= {}
       data[:volumes] ||= []
 
-      apply_template if templated_service?
+      apply_template if templated?
     end
 
     def dependencies
@@ -65,18 +65,18 @@ module DockerCompose
     end
 
     private
-    def templated_service?
+    def templated?
       name.end_with?('test-runner', 'analyzer', 'representer') && !name.start_with?('generic')
     end
 
-    def templated_service_name
+    def templated_name
       name.gsub(/(.+?)-(test-runner|analyzer|representer)/, 'generic-\2')
     end
 
     def apply_template
-      data[:image] = data[:image].gsub(templated_service_name, name) if data[:image]
-      data[:build][:context] = data[:build][:context].gsub(templated_service_name, name) if data[:build][:context]
-      data[:volumes].map! { |volume| volume.gsub(templated_service_name, name) }
+      data[:image] = data[:image].gsub(templated_name, name) if data[:image]
+      data[:build][:context] = data[:build][:context].gsub(templated_name, name) if data[:build][:context]
+      data[:volumes].map! { |volume| volume.gsub(templated_name, name) }
     end
   end
 end
