@@ -30,6 +30,11 @@ help() {
 }
 
 run_script() {
+    if [ -z $script ]; then
+        echo "No script specified. Please specify the script as the second argument."
+        exit
+    fi
+
     # The v3-website directory is different from the container name
     if [ $service = "website" ]; then
         service_directory="v3-website"
