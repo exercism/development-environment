@@ -11,7 +11,7 @@ This repository will provide you with Exercism's local development environment, 
 Our aim is to get you to a working setup within 10 minutes from now, most of which will be spent downloading things, but if you have a slower internet connection, things may take longer.
 
 It requires the following to install:
-- **[Docker](https://docs.docker.com/get-docker/):** Docker needs to be installed but **no Docker knowledge is required**. 
+- **[Docker](https://docs.docker.com/get-docker/):** Docker needs to be installed but **no Docker knowledge is required** and you do not need a DockerHub account.
 - **[Ruby](https://www.ruby-lang.org/en/documentation/installation/):** Many of the scripts in this repository are written in Ruby. Any version 2+ is fine. 
 - **Git:** In order to obtain this repository using the instructions below, you need `git` installed.
 
