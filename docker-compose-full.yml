@@ -96,7 +96,7 @@ services:
     entrypoint: exercism_local_tooling_webserver
     build:
       context: ../generic-test-runner
-      dockerfile: dev.Dockerfile
+      dockerfile: Dockerfile
     volumes:
       - ../generic-test-runner:/opt/test-runner
 

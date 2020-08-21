@@ -2,7 +2,7 @@
 # configuring it with custom configuration
 module DockerCompose
   class Service
-    DEFAULTS = { build: false, environment: {} }.with_indifferent_access.freeze
+    DEFAULTS = { build: false, source: false, environment: {} }.with_indifferent_access.freeze
 
     attr_reader :name, :data
 
@@ -35,12 +35,16 @@ module DockerCompose
       # everything since now an empty folder is mounted in place of the containers source
       data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_missing? }
 
+      # Don't map the source code of container's repository unless "source" is true
+      data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_is_directory? unless settings[:source] }
+
       data.deep_merge!(settings)
 
       cleanup
     end
 
     def cleanup
+      data.delete(:source)
       data.delete(:volumes) if data[:volumes].empty?
       data.delete(:environment) if data[:environment].empty?
     end
