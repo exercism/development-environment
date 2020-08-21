@@ -7,6 +7,7 @@ help() {
     echo "script [service] [script]"
     echo
     echo To execute a script on a service the service must be running.
+    echo
     echo These are the services and scripts that can be run:
 
     detect_and_print_available_scripts
@@ -27,11 +28,11 @@ detect_and_print_available_scripts() {
         # iterate over all the files in the repo's scripts/docker directory
         find $docker_scripts_dir -maxdepth 1 -mindepth 1 -type f | sort | while read script_file; do
             if [ $print_service ]; then
-                echo "$(basename $repo_dir)"
+                echo "- $(basename $repo_dir)"
                 unset print_service
             fi
 
-            echo " - $(basename $script_file)"
+            echo "  - $(basename $script_file)"
         done
     done
 }
