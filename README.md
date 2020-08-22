@@ -212,6 +212,20 @@ Similarly if you want to work on tooling (test runners, analyzers, representers,
 
 If you want to work on the various components of the website itself, then this is the official and only-supported way to work. However, you do not have to use it. You **can** set things up and get things playing nicely together locally, but this will probably be challenging, and unlikely to be worth the investment of your time. Instructions for each component can be found in the individual repositories, but we do not maintain instructions on how to piece them altogether.
 
+### I'm on Mac and I get an error about Ruby
+
+Mac OSX comes with a system ruby pre-installed. That can cause problems when using this, or other Ruby applications. If you're on Mac, and get one of the following errors, checkout [this troubleshooting issue](https://github.com/exercism/development-environment/issues/30)
+
+```
+/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/ruby: bad interpreter: No such file or directory
+
+ERROR: While executing gem ... (Gem::FilePermissionError)
+You don't have write permissions for the /Library/Ruby/Gems/2.6.0 directory.
+
+Error: The following directories are not writable by your user:
+/usr/local/lib
+```
+
 ## Stuck?
 
 Stuck running the Docker setup? Please open an issue in this repository, and we will try and help you fix things, and tweak things so other people don't face the same challenge.
