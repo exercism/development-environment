@@ -5,7 +5,7 @@ services:
     mem_limit: "1g"
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_HOST: "%"
 
   redis:
     image: redis
@@ -93,7 +93,7 @@ services:
 
   generic-tooling:
     image: exercism/generic-tooling-image
-    entrypoint: exercism_local_tooling_webserver
+    entrypoint: tooling_webserver
     build:
       context: ../generic-tooling-build-context
       dockerfile: Dockerfile
