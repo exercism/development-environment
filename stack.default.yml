@@ -11,10 +11,11 @@ enabled:
 
 configure:
   # setup:
-    # build: true
-  #   source: true
-    # args:
-      # exercism_config_version: 0.34.0
+  # build: true
+  # source: true
+  # args:
+  # exercism_config_version: 0.34.0
+
   website:
     # build: true
     # source: true
