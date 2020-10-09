@@ -39,10 +39,12 @@ Then when making commits you can easily push the commit to the origin (your fork
 Now when you start the development environment, it will use your `v3-website` repo as the source for the rails application. When the development environment is running, enter the website's running docker container to run tests.
 
 ```text
+# Open a terminal to the running website container:
 > ./bin/shell website
 
-# This is a short cut for: 
-# > docker exec -it development-environment_website_1 bash
+# You can alternatively use:
+> docker exec -it development-environment_website_1 bash
+
 > bundle exec rails test # run all rails tests
 > yarn test [<specific test file>] # run jest tests
 ```
