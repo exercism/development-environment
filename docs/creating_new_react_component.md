@@ -8,9 +8,9 @@
 ## Create the tests
 
 - Place tests in `/test/javascript/components/<component-name>/ComponentName.test.tsx`
-- The tests must use the [JEST](https://jestjs.io/) test framework
+- The tests must use the [Jest](https://jestjs.io/) test framework
 - [Testing Library](https://testing-library.com/) is useful for testing your react component
-- [Pluralsight has a crashcourse](https://www.pluralsight.com/guides/how-to-test-react-components-in-typescript) in testing React component
+- [Pluralsight has a crash course](https://www.pluralsight.com/guides/how-to-test-react-components-in-typescript) in testing React components
 - See [common workflows](./common_workflows.md) to see how to run the jest tests
 
 ## Add it to the application

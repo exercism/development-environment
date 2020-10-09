@@ -19,7 +19,7 @@
 > cd v3-website
 ```
 
-After a pull request is open against `exercism/v3-website`, the remote fork's branch can be checked out [following this guide][github-mod-inactive-pr-local].  After making a commit, you can't `git push` to the `exercism`'s repo, but you can to your own fork
+After a pull request is opened against `exercism/v3-website`, the remote fork's branch can be checked out [following this guide][github-mod-inactive-pr-local].  After making a commit, you can't `git push` to the `exercism`'s repo, but you can to your own fork.
 
 ```text
 > git push <remote-name> HEAD:<remote-branch-name>
@@ -32,16 +32,26 @@ After a pull request is open against `exercism/v3-website`, the remote fork's br
 > git clone <your v3-website fork> v3-website 
 ```
 
-Then when making commits you can easily push the commit to the origin
+Then when making commits you can easily push the commit to the origin (your fork).
 
 ## Running tests
 
 Now when you start the development environment, it will use your `v3-website` repo as the source for the rails application. When the development environment is running, enter the website's running docker container to run tests.
 
 ```text
-> docker exec -it development-environment_website_1 bash
+> ./bin/shell website
+
+# This is a short cut for: 
+# > docker exec -it development-environment_website_1 bash
 > bundle exec rails test # run all rails tests
 > yarn test [<specific test file>] # run jest tests
 ```
 
+If you don't need a persistent terminal in the container, you can also use these commands:
+
+```text
+> ./bin/script website run-js-tests         # Run the jest tests
+> ./bin/script website run-tests            # Run the Rails tests
+> ./bin/script website run-system-tests     # Run the Capybara tests
+```
 [github-mod-inactive-pr-local]: https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/checking-out-pull-requests-locally#modifying-an-inactive-pull-request-locally
