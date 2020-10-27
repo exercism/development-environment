@@ -2,6 +2,7 @@ enabled:
   # s3, dynamodb, redis, startup
   - core_services
   - website
+  - git-server
   - tooling
   # disable to save RAM if you don't use portainer or adminer much
   - admin
@@ -11,10 +12,10 @@ enabled:
 
 configure:
   # setup:
-  # build: true
-  # source: true
-  # args:
-  # exercism_config_version: 0.34.0
+  #   build:
+  #     args:
+  #       exercism_config_version: 0.47.0
+  #   source: true
 
   website:
     # build: true
