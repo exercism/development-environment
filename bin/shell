@@ -15,6 +15,7 @@ help() {
     echo  - redis-cli
     echo  - tooling-invoker
     echo  - tooling-orchestrator
+    echo  - git-server
 }
 
 case "$service" in
@@ -45,5 +46,8 @@ case "$service" in
     ;;
 "tooling-orchestrator")
     docker-compose exec --env PS1="{^_^} tooling-orchestrator\n      \w % " tooling-orchestrator /bin/sh
+    ;;
+"git-server")
+    docker-compose exec --env PS1="{^_^} git-server\n      \w % " git-server /bin/sh
     ;;
 esac
