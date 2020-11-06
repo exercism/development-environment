@@ -2,7 +2,6 @@ enabled:
   # s3, dynamodb, redis, startup
   - core_services
   - website
-  - git-server
   - tooling
   # disable to save RAM if you don't use portainer or adminer much
   - admin

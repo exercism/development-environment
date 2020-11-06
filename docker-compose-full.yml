@@ -59,23 +59,6 @@ services:
       - type: tmpfs
         target: /usr/src/app/tmp
 
-  git-server:
-    image: exercism/git-server
-    mem_limit: "250m"
-    build:
-      context: ../git-server
-      dockerfile: dev.Dockerfile
-    depends_on:
-      - dynamodb
-      - mysql
-    environment:
-      - EXERCISM_DOCKER=true
-      - EXERCISM_ENV=development
-    ports:
-      - 3022:3022
-    volumes:
-      - ../git-server:/usr/src/app
-
   tooling-orchestrator:
     image: exercism/tooling-orchestrator
     mem_limit: "250m"
