@@ -45,6 +45,7 @@ services:
       - s3
       - setup
     environment:
+      - LANGUAGE_SERVER_HOST=language-server-proxy:3000
       - DB_HOST=mysql
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
@@ -116,3 +117,18 @@ services:
       - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+  language-server-proxy:
+    build:
+      context: ../language-servers
+      dockerfile: proxy.Dockerfile
+    ports:
+      - 3000:3000
+    environment:
+      RUBY_LANGUAGE_SERVER_HOST: ruby-language-server
+      RUBY_LANGUAGE_SERVER_PORT: 7658
+
+  ruby-language-server:
+    build:
+      context: ../language-servers
+      dockerfile: ruby.Dockerfile
