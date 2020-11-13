@@ -87,7 +87,7 @@ services:
     environment:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
-      - EXERCISM_INVOKE_VIA_DOCKER=true
+      - EXERCISM_INVOKE_STATEGY=local-webserver
     volumes:
       - ../tooling-invoker:/usr/src/app
 
