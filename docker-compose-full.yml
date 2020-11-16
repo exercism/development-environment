@@ -132,3 +132,6 @@ services:
     build:
       context: ../language-servers
       dockerfile: ruby.Dockerfile
+    environment:
+      PROXY_HOST: language-server-proxy
+      PROXY_PORT: 4444
