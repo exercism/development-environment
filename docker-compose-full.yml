@@ -45,7 +45,7 @@ services:
       - s3
       - setup
     environment:
-      - LANGUAGE_SERVER_HOST=localhost:3023
+      - LANGUAGE_SERVER_HOST=ws://localhost:3023
       - DB_HOST=mysql
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
