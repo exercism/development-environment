@@ -108,6 +108,7 @@ services:
       - ../generic-tooling-source:/opt/generic-tooling-target
 
   language-server-proxy:
+    image: exercism/language-server-proxy
     build:
       context: ../language-servers
       dockerfile: proxy.Dockerfile
@@ -120,24 +121,33 @@ services:
       JAVASCRIPT_LANGUAGE_SERVER_PORT: 2538
       CSHARP_LANGUAGE_SERVER_HOST: csharp-language-server
       CSHARP_LANGUAGE_SERVER_PORT: 8291
+    volumes:
+      - ../language-servers:/opt/exercism/language-server-proxy/current
 
   ruby-language-server:
+    image: exercism/ruby-language-server
     build:
       context: ../language-servers
       dockerfile: ruby.Dockerfile
     environment:
       PROXY_HOST: language-server-proxy
       PROXY_PORT: 4444
+    volumes:
+      - ../language-servers:/opt/exercism/ruby-language-server/current
 
   javascript-language-server:
+    image: exercism/javascript-language-server
     build:
       context: ../language-servers
       dockerfile: javascript.Dockerfile
     environment:
       PROXY_HOST: language-server-proxy
       PROXY_PORT: 4444
+    volumes:
+      - ../language-servers:/opt/exercism/javascript-language-server/current
 
   csharp-language-server:
+    image: exercism/csharp-language-server
     tty: true
     build:
       context: "../language-servers"
@@ -145,6 +155,8 @@ services:
     environment:
       PROXY_HOST: language-server-proxy
       PROXY_PORT: 4444
+    volumes:
+      - ../language-servers:/opt/exercism/csharp-language-server/current
 
   adminer:
     image: adminer:4.7.7-standalone
