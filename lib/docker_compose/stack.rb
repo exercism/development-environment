@@ -6,7 +6,7 @@ module DockerCompose
     def initialize(stack, using:)
       @architecture = using
       @stack = stack.with_indifferent_access
-      @data = { version: architecture.version }.with_indifferent_access
+      @data = { version: architecture.version, volumes: architecture.volumes }.with_indifferent_access
     end
 
     def write_docker_compose
