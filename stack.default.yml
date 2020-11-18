@@ -5,6 +5,10 @@ enabled:
   - tooling
   # disable to save RAM if you don't use portainer or adminer much
   - admin
+  - analyzers
+  - test-runners
+  - representers
+  - language-servers
   # add any specific components you'd like to work with here such
   # as specific tracks runners/analyzers, etc.
   - javascript-test-runner
@@ -29,7 +33,7 @@ configure:
       - 9999:3035 # webpack, 3035 internal
       - 9998:3334 # cable, 3334 internal
 
-  # javascript-test-runner:
+  # ruby-test-runner:
   #   build: true
   #   source: true
   #   environment:
@@ -47,8 +51,12 @@ groups:
   tooling:
     - tooling-invoker
     - tooling-orchestrator
+    - language-server-proxy
   analyzers:
     - none
   test-runners:
-    - csharp-test-runner
-    - javascript-test-runner
+    - ruby-test-runner
+  representers:
+    - none
+  language-servers:
+    - none
