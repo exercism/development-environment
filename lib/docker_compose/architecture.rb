@@ -12,6 +12,10 @@ module DockerCompose
       end
     end
 
+    def volumes
+      compose_data[:volumes]
+    end
+
     def version
       compose_data[:version]
     end

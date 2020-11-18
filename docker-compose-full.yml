@@ -57,6 +57,9 @@ services:
     volumes:
       - ../v3-website:/usr/src/app
       - /usr/src/app/node_modules
+      - type: volume
+        source: tmp
+        target: /tmp
       - type: tmpfs
         target: /usr/src/app/tmp
 
@@ -91,6 +94,9 @@ services:
       - EXERCISM_INVOKE_VIA_DOCKER=true
     volumes:
       - ../tooling-invoker:/usr/src/app
+      - type: volume
+        source: tmp
+        target: /tmp
 
   generic-tooling:
     image: exercism/generic-tooling-image
@@ -118,41 +124,5 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
-  language-server-proxy:
-    build:
-      context: ../language-servers
-      dockerfile: proxy.Dockerfile
-    ports:
-      - 3023:3023
-    environment:
-      RUBY_LANGUAGE_SERVER_HOST: ruby-language-server
-      RUBY_LANGUAGE_SERVER_PORT: 7658
-      JAVASCRIPT_LANGUAGE_SERVER_HOST: javascript-language-server
-      JAVASCRIPT_LANGUAGE_SERVER_PORT: 2538
-      CSHARP_LANGUAGE_SERVER_HOST: csharp-language-server
-      CSHARP_LANGUAGE_SERVER_PORT: 8291
-
-  ruby-language-server:
-    build:
-      context: ../language-servers
-      dockerfile: ruby.Dockerfile
-    environment:
-      PROXY_HOST: language-server-proxy
-      PROXY_PORT: 4444
-
-  javascript-language-server:
-    build:
-      context: ../language-servers
-      dockerfile: javascript.Dockerfile
-    environment:
-      PROXY_HOST: language-server-proxy
-      PROXY_PORT: 4444
-
-  csharp-language-server:
-    tty: true
-    build:
-      context: "../language-servers"
-      dockerfile: csharp.Dockerfile
-    environment:
-      PROXY_HOST: language-server-proxy
-      PROXY_PORT: 4444
+volumes:
+  tmp:
