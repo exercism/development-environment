@@ -97,7 +97,7 @@ services:
 
   generic-tooling:
     image: exercism/generic-tooling-image
-    entrypoint: tooling_webserver
+    entrypoint: ["echo", "Ready to run..."]
     build:
       context: ../generic-tooling-build-context
       dockerfile: Dockerfile
