@@ -33,6 +33,10 @@ configure:
       - 9999:3035 # webpack, 3035 internal
       - 9998:3334 # cable, 3334 internal
 
+  tooling-invoker:
+    environment:
+      EXERCISM_DEV_ENV_DIR: "<%= File.expand_path(__dir__) %>:/tmp"
+
   # ruby-test-runner:
   #   build: true
   #   source: true
