@@ -94,6 +94,7 @@ services:
       - EXERCISM_INVOKE_STATEGY=local-webserver
     volumes:
       - ../tooling-invoker:/usr/src/app
+      - /var/run/docker.sock:/var/run/docker.sock
       - type: volume
         source: tmp
         target: /tmp
