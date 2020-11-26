@@ -56,10 +56,8 @@ services:
       - 3334:3334
     volumes:
       - ../v3-website:/usr/src/app
+      - "./tmp:/tmp"
       - /usr/src/app/node_modules
-      - type: volume
-        source: tmp
-        target: /tmp
       - type: tmpfs
         target: /usr/src/app/tmp
 
@@ -94,10 +92,8 @@ services:
       - EXERCISM_INVOKE_STATEGY=local-webserver
     volumes:
       - ../tooling-invoker:/usr/src/app
+      - "./tmp:/tmp"
       - /var/run/docker.sock:/var/run/docker.sock
-      - type: volume
-        source: tmp
-        target: /tmp
 
   generic-tooling:
     image: exercism/generic-tooling-image
@@ -175,6 +171,3 @@ services:
       - 9000:9000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-volumes:
-  tmp:
