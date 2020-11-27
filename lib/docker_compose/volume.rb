@@ -18,6 +18,10 @@ module DockerCompose
       bind? && Dir.exist?(source)
     end
 
+    def bind_source_is_sub_directory?
+      bind? && source && source.start_with?('./')
+    end
+
     private
     def bind?
       type == "bind"
