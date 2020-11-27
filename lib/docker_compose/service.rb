@@ -33,10 +33,18 @@ module DockerCompose
 
       # Prevent us from binding repos the user has not downloaded which quickly breaks
       # everything since now an empty folder is mounted in place of the containers source
-      data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_missing? }
+      data[:volumes].reject! do |v|
+        volume = DockerCompose::Volume.new(v)
+        volume.bind_source_missing? unless volume.bind_source_is_sub_directory?
+      end
 
       # Don't map the source code of container's repository unless "source" is true
-      data[:volumes].reject! { |v| DockerCompose::Volume.new(v).bind_source_is_directory? unless settings[:source] }
+      data[:volumes].reject! do |v|
+        return false if settings[:source]
+
+        volume = DockerCompose::Volume.new(v)
+        volume.bind_source_is_directory? unless volume.bind_source_is_sub_directory?
+      end
 
       data.deep_merge!(settings)
 

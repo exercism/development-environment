@@ -56,7 +56,8 @@ services:
       - 3334:3334
     volumes:
       - ../v3-website:/usr/src/app
-      - "./tmp:/tmp"
+      - "./tmp/exercism-tooling-jobs:/tmp/exercism-tooling-jobs"
+      - "./tmp/exercism-tooling-jobs-efs:/tmp/exercism-tooling-jobs-efs"
       - /usr/src/app/node_modules
       - type: tmpfs
         target: /usr/src/app/tmp
@@ -92,7 +93,8 @@ services:
       - EXERCISM_INVOKE_STATEGY=local-webserver
     volumes:
       - ../tooling-invoker:/usr/src/app
-      - "./tmp:/tmp"
+      - "./tmp/exercism-tooling-jobs:/tmp/exercism-tooling-jobs"
+      - "./tmp/exercism-tooling-jobs-efs:/tmp/exercism-tooling-jobs-efs"
       - /var/run/docker.sock:/var/run/docker.sock
 
   generic-tooling:
