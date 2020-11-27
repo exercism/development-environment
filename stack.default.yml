@@ -35,7 +35,7 @@ configure:
 
   tooling-invoker:
     environment:
-      EXERCISM_DEV_ENV_DIR: "<%= File.expand_path(__dir__) %>:/tmp"
+      EXERCISM_DEV_ENV_DIR: "<%= File.expand_path(__dir__) %>"
 
   # ruby-test-runner:
   #   build: true
