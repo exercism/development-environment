@@ -26,11 +26,17 @@ module DockerCompose
     end
 
     def resolve_group(name)
+      return [] if skip_group(name)
+
       if stack[:groups].key?(name)
         stack[:groups][name].map(&method(:resolve_group))
       else
         [name, resolve_dependencies(name)]
       end
+    end
+
+    def skip_group(name)
+      name == "none"
     end
 
     def resolve_dependencies(name)
