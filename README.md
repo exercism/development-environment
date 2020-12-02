@@ -4,18 +4,22 @@
 
 # Exercism Development Environment
 
-Hello! 👋 
+Hello! 👋
 
 This repository will provide you with Exercism's local development environment, which you can use to develop any part of the project.
 
 Our aim is to get you to a working setup within 10 minutes from now, most of which will be spent downloading things, but if you have a slower internet connection, things may take longer.
 
 It requires the following to install:
+
 - **[Docker](https://docs.docker.com/get-docker/):** Docker needs to be installed but **no Docker knowledge is required** and you do not need a DockerHub account.
-- **[Ruby](https://www.ruby-lang.org/en/documentation/installation/):** Many of the scripts in this repository are written in Ruby. Any version 2+ is fine. 
+- **[Ruby](https://www.ruby-lang.org/en/documentation/installation/):** Many of the scripts in this repository are written in Ruby. Any version 2+ is fine.
 - **Git:** In order to obtain this repository using the instructions below, you need `git` installed.
 
 **Windows users:** We recommend using [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) and running the commands in a WSL-enabled terminal.
+
+**Updates:** We have a [Changelog](./CHANGELOG.md) which lists breaking changes with instructions to follow to ensure your development environment continues to work.
+Please check it reguarly.
 
 ## Basic setup
 
@@ -204,7 +208,7 @@ Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile)
 
 ### Do I have to use this to work on Exercism?
 
-No. 
+No.
 
 If you want to only work on a language track, without seeing it running in context of the website, you can just directly work on that repository. In fact, that is the most common way to work on tracks.
 

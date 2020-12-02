@@ -57,7 +57,9 @@ COPY ./src/exercism_logo.txt /etc
 
 ENTRYPOINT cat /etc/exercism_logo.txt && \
     echo && echo "Exercism v3" && echo && \
+    echo "Setting up Exercism Config" && echo && \
     setup_exercism_config && \
+    echo "Setting up Local Exercism AWS" && echo && \
     setup_exercism_local_aws && \
     # sleep 10 so ./bin/start does not try to restart us
     sleep 10

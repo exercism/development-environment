@@ -1,5 +1,5 @@
 enabled:
-  # s3, dynamodb, redis, startup
+  # aws, redis, startup
   - core_services
   - website
   - tooling
@@ -47,8 +47,7 @@ groups:
   core_services:
     - setup
     - redis
-    - dynamodb
-    - s3
+    - aws
   admin:
     - adminer
     - portainer

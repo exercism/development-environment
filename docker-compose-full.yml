@@ -11,13 +11,16 @@ services:
     image: redis
     mem_limit: "500m"
 
-  dynamodb:
-    image: amazon/dynamodb-local
+  aws:
+    image: "localstack/localstack"
     mem_limit: "500m"
-
-  s3:
-    image: adobe/s3mock
-    mem_limit: "500m"
+    environment:
+      EDGE_PORT: "3040"
+      SERVICES: "s3,dynamodb,secretsmanager"
+      HOSTNAME: "aws"
+      HOSTNAME_EXTERNAL: "aws"
+    ports:
+      - 3040:3040
 
   setup:
     image: exercism/setup
@@ -26,8 +29,7 @@ services:
       context: ./setup
       dockerfile: dev.Dockerfile
     depends_on:
-      - dynamodb
-      - s3
+      - aws
     environment:
       - EXERCISM_DOCKER=true
       - EXERCISM_ENV=development
@@ -41,8 +43,7 @@ services:
     depends_on:
       - mysql
       - redis
-      - dynamodb
-      - s3
+      - aws
       - setup
     environment:
       - LANGUAGE_SERVER_HOST=ws://localhost:3023
