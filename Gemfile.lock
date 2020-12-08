@@ -68,7 +68,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  exercism-config
+  exercism-config (= 0.56.0)
   rubocop
   rubocop-minitest
   rubocop-performance
