@@ -2,6 +2,7 @@
 
 service=$1
 script=$2
+arguments=${@:3}
 
 help() {
     echo "script [service] [script]"
@@ -57,8 +58,8 @@ run_script() {
         exit 1
     fi
 
-    # Strip any comments (such as the shebang)
-    script_contents=$(cat $script_path | sed /^\#/d)
+    # Strip any comments (such as the shebang) and add any arguments
+    script_contents="$(cat $script_path | sed /^\#/d) $arguments"
 
     # Excute the script
     docker-compose exec \
