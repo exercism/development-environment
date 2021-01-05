@@ -57,7 +57,7 @@ COPY ./src/exercism_logo.txt /etc
 
 ENTRYPOINT cat /etc/exercism_logo.txt && \
     echo && echo "Exercism v3" && echo && \
-    echo "Setting up Exercism Config" && echo && \
+    echo "Setting up Exercism Config v${EXERCISM_CONFIG_VERSION}" && echo && \
     setup_exercism_config && \
     echo "Setting up Local Exercism AWS" && echo && \
     setup_exercism_local_aws && \
