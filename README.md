@@ -26,6 +26,10 @@ Please check it reguarly.
 The following instructions take you through getting the most basic setup working.
 We'll explain what actually happens below the hood, and how to configure things afterwards.
 
+### Update hosts file
+
+As the website is expected to run at `local.exercism.io`, you should update your hosts file to have `local.exercism.io` resolve to `127.0.0.1` (localhost).
+
 ### Getting set up
 
 To start, run the following instructions line-by-line:
@@ -50,6 +54,8 @@ cp stack.default.yml stack.yml
 # Start everything
 ./bin/start
 ```
+
+Once the script has finished, the website will be running at http://local.exercism.io:3020.
 
 ### Updating everything
 
