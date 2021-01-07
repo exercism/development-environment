@@ -17,7 +17,7 @@ configure:
   # setup:
   #   build:
   #     args:
-  #       exercism_config_version: 0.56.0
+  #       exercism_config_version: 0.60.0
   #   source: true
 
   website:
@@ -25,8 +25,8 @@ configure:
     # source: true
     # change these (and ports below) to remap outside service ports
     environment:
-      WEBPACKER_DEV_SERVER_PUBLIC: "localhost:9999"
-      CABLE_URL: "ws://localhost:9998/cable"
+      WEBPACKER_DEV_SERVER_PUBLIC: "local.exercism.io:9999"
+      CABLE_URL: "ws://local.exercism.io:9998/cable"
     # reconfigure the external ports to avoid conflicts
     ports:
       - 3020:3020 # rails, 3020 internal
