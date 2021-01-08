@@ -15,7 +15,9 @@ jobs:
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # 2.3.4
 
       - name: Set exercism config version
-        run: echo "EXERCISM_CONFIG_VERSION=\"$(grep 'exercism-config (' Gemfile.lock | grep -o '[0-9.]\+')\"" >> $GITHUB_ENV
+        run: |
+          EXERCISM_CONFIG_VERSION=$(grep -E 'exercism-config \([0-9\.]+\)' Gemfile.lock | grep -E -o '[0-9\.]+')
+          echo "EXERCISM_CONFIG_VERSION=$EXERCISM_CONFIG_VERSION" >> $GITHUB_ENV
 
       - name: Check exercism_config version
         run: echo $EXERCISM_CONFIG_VERSION
