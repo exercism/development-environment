@@ -3,6 +3,8 @@ name: Push to DockerHub
 on:
   push:
     branches: [master]
+  pull_request:
+    branches: [master]
 
 jobs:
   dockerhub:
@@ -10,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # 2.3.4
 
       - name: Set exercism config version
         run: echo "EXERCISM_CONFIG_VERSION=$(grep 'exercism-config (' Gemfile.lock | grep -o '[0-9.]\+')" >> $GITHUB_ENV
@@ -18,16 +20,32 @@ jobs:
       - name: Check exercism_config version
         run: echo $EXERCISM_CONFIG_VERSION
 
-      - uses: satackey/action-docker-layer-caching@v0.0.5
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@154c24e1f33dbb5865a021c99f1318cfebf27b32 # 1.1.1
 
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v1.1.0
+      - name: Cache Docker layers
+        uses: actions/cache@0781355a23dac32fd3bac414512f4b903437991a # 2.1.3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Login to DockerHub
+        uses: docker/login-action@f3364599c6aa293cdc2b8391b1b56d0c30e45c8a # 1.8.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: exercism/setup
-          tag_with_sha: true
-          tags: latest
-          path: setup
-          dockerfile: setup/dev.Dockerfile
-          build_args: --build-arg exercism_config_version=${{ env.EXERCISM_CONFIG_VERSION }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@0db984c1826869dcd0740ff26ff75ff543238fd9 # 2.2.1
+        with:
+          context: ./setup
+          dockerfile: dev.Dockerfile
+          push: true
+          tags: |
+            exercism/setup:latest
+            exercism/setup:${{ github.sha }}
+          build_args: exercism_config_version=${{ env.EXERCISM_CONFIG_VERSION }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
