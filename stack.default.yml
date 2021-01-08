@@ -11,7 +11,7 @@ enabled:
   - language-servers
   # add any specific components you'd like to work with here such
   # as specific tracks runners/analyzers, etc.
-  - javascript-test-runner
+  - csharp-test-runner
 
 configure:
   # setup:
