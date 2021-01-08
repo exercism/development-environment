@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f # 2.3.4
 
       - name: Set exercism config version
-        run: echo "EXERCISM_CONFIG_VERSION=0.6.0" >> $GITHUB_ENV
+        run: echo "EXERCISM_CONFIG_VERSION='0.6.0'" >> $GITHUB_ENV
 
       - name: Check exercism_config version
         run: echo $EXERCISM_CONFIG_VERSION
