@@ -217,7 +217,7 @@ The development environment uses the [v3 repository](https://github.com/exercism
 There are three environment variables you can use to customize the Git integration:
 
 - `GIT_CONTENT_REPO`: the Git repository to clone. You can use this to clone a fork (e.g. `https://github.com/me/v3`) or a repository on your filesystem (e.g. `file:///usr/me/v3`). If not specified, `https://github.com/exercism/v3` is used.
-- `GIT_CONTENT_BRANCH`: the branch to checkout after cloning. If not specified, `master` is used.
+- `GIT_CONTENT_BRANCH`: the branch to checkout after cloning. If not specified, `main` is used.
 - `GIT_ALWAYS_FETCH_ORIGIN`: indicates if a `git fetch` runs each time information is retrieved from Git. If not specified, `true` is used.
 
 ## FAQs?
