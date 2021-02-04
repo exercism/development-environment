@@ -128,7 +128,8 @@ In the context of Exercism, each component (e.g. the website UI, an analyzer, th
 These Dockerfiles are stored within each component's repository (often named `dev.Dockerfile`) and are built and pushed to DockerHub via GitHub Actions.
 
 The code in this repository handles the creation of a `docker-compose.yml` and provides you with some wrapper scripts to run things.
-The `bin/start` script generates the `docker-compose.yml` from your `stack.yml` file, downloads the images from DockerHub and then starts them (via `docker-compose up`).
+The `bin/start` script generates the `docker-compose.yml` by merging your local `stack.yml` file with [docker-compose-full.yml](docker-compose-full.yml).
+It then downloads the images from DockerHub and starts them via `docker-compose up`.
 
 Note: Docker for Windows by default stores its data on the `C:` drive, but this can be changed in the settings.
 
@@ -212,13 +213,33 @@ Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile)
 
 ### Customizing Git integration
 
-The development environment uses the [v3 repository](https://github.com/exercism/v3) as its source for track contents, such as its exercises, concepts and documentation.
+The development environment uses the [v3 repository](https://github.com/exercism/v3) as its source for track contents, such as its exercises, concepts and documentation. 
 
-There are three environment variables you can use to customize the Git integration:
+If you are using the development environment to work on a specific track, replace the v3 repository with the track you are working on. 
+`Go` is used in the following examples. 
+Currently, the database seeds contain only the ruby track, so accessing your track's content via the ruby track links/URLs is the easiest way to load your track's data to the local website. 
+Additionally, if you do seed/instantiate other tracks, they will all be associated with the `GIT_CONTENT_REPO` that you specify. 
+At some point in the future, the dev env will be upgraded to allow you to specify a repo for any track (and only that track).
 
-- `GIT_CONTENT_REPO`: the Git repository to clone. You can use this to clone a fork (e.g. `https://github.com/me/v3`) or a repository on your filesystem (e.g. `file:///usr/me/v3`). If not specified, `https://github.com/exercism/v3` is used.
+These are three environment variables used to customize the Git integration:
+
+- `GIT_CONTENT_REPO`: the Git repository to clone. You can use this to clone a fork (e.g. `https://github.com/me/go`) or a repository on the `website` container filesystem (e.g. `file:///usr/me/go`). If not specified, `https://github.com/exercism/v3` is used.
 - `GIT_CONTENT_BRANCH`: the branch to checkout after cloning. If not specified, `main` is used.
 - `GIT_ALWAYS_FETCH_ORIGIN`: indicates if a `git fetch` runs each time information is retrieved from Git. If not specified, `true` is used.
+
+If you use a repo on the `website` container filesystem, you still need to commit your changes for them to be picked up by the website. 
+Your branch will also needd to match the `GIT_CONTENT_BRANCH` from above. 
+Only code and README changes will be picked up after committing. 
+If you need to make changes to the directory structure (like adding an exercise)
+and/or `config.json`, you will need to use the following commands to rebuild
+your environment: 
+
+```bash
+docker-compose --remove-orphans down
+rm -rf tmp/exercism/* 
+bin/start --pull
+```
+
 
 ## FAQs?
 
@@ -245,6 +266,25 @@ You don't have write permissions for the /Library/Ruby/Gems/2.6.0 directory.
 Error: The following directories are not writable by your user:
 /usr/local/lib
 ```
+
+### I'm on Mac and the site doesn't load and/or is super slow
+
+There are two likely scenarios here. The first thing to do is just wait longer.
+After running `bin/start --pull`, node may take 10 minutes or more to compile all of the javascript and css. 
+If this fails, make sure you have allocated at least 8GB of memory to your docker containers (sorry `¯\_(ツ)_/¯`). 
+
+Secondly, if you have mounted a git repo from your local filesystem, the Docker for Mac project has multiple long standing issues with mount performance. 
+They are (hopefully) [working on them](https://github.com/docker/roadmap/issues/7).
+The best option is to shell into the website container and manually clone your repo there:
+
+```bash
+bin/shell website
+git clone https://github.com/exercism/go.git /usr/src/go
+```
+Keep in mind, you'll need to re-run this step whenever you do a `docker-compose down`.
+It may be preferable to edit code on your local machine and push up to github in order to see your changes. 
+We realize that neither option is ideal and we will work on making the development experience better as V3 becomes more mature. 
+
 
 ## Stuck?
 
