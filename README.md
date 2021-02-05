@@ -129,7 +129,9 @@ These Dockerfiles are stored within each component's repository (often named `de
 
 The code in this repository handles the creation of a `docker-compose.yml` and provides you with some wrapper scripts to run things.
 The `bin/start` script generates the `docker-compose.yml` by merging your local `stack.yml` file with [docker-compose-full.yml](docker-compose-full.yml).
-It then downloads the images from DockerHub and starts them via `docker-compose up`.
+It then downloads the images from DockerHub (if missing locally) and starts them via `docker-compose up`.
+
+Running with `--pull` checks DockerHub for updated images. Running with `--build` rebuilds any Dockerfiles where the have `build: true` set in `stack.yml`
 
 Note: Docker for Windows by default stores its data on the `C:` drive, but this can be changed in the settings.
 
@@ -213,21 +215,21 @@ Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile)
 
 ### Customizing Git integration
 
-The development environment uses the [v3 repository](https://github.com/exercism/v3) as its source for track contents, such as its exercises, concepts and documentation. 
+The development environment uses the track repositories (e.g. [Ruby](https://github.com/exercism/ruby)) as its source for track contents, such as its exercises, concepts and documentation.
 
-If you are using the development environment to work on a specific track, replace the v3 repository with the track you are working on. 
-Currently, the database seeds contain only the ruby track, so accessing your track's content via the ruby track links/URLs is the easiest way to load your track's data to the local website. 
+If you are using the development environment to work on a specific track, you can instruct the website to use a specific repository (e.g. a local fork) rather than downloading the default repositories from GitHub. 
+Currently, the database seeds contain only the Ruby track, so accessing your track's content via the Ruby track links/URLs is the easiest way to load your track's data to the local website (e.g. http://local.exercism.io/tracks/ruby)
 Additionally, if you do seed/instantiate other tracks, they will all be associated with the `GIT_CONTENT_REPO` that you specify. 
 At some point in the future, the dev env will be upgraded to allow you to specify a repo for any track (and only that track).
 
 These are three environment variables used to customize the Git integration:
 
-- `GIT_CONTENT_REPO`: the Git repository to clone. You can use this to clone a fork (e.g. `https://github.com/me/go`) or a repository on the `website` container filesystem (e.g. `file:///usr/me/go`). If not specified, `https://github.com/exercism/v3` is used.
+- `GIT_CONTENT_REPO`: the Git repository to clone. You can use this to clone a fork (e.g. `https://github.com/me/go`) or a repository on the `website` container filesystem (e.g. `file:///usr/me/go`). If not specified, track repositories (e.g. `https://github.com/exercism/ruby`) are used.
 - `GIT_CONTENT_BRANCH`: the branch to checkout after cloning. If not specified, `main` is used.
 - `GIT_ALWAYS_FETCH_ORIGIN`: indicates if a `git fetch` runs each time information is retrieved from Git. If not specified, `true` is used.
 
 If you use a repo on the `website` container filesystem, you still need to commit your changes for them to be picked up by the website. 
-Your branch will also needd to match the `GIT_CONTENT_BRANCH` from above. 
+Your branch will also need to match the `GIT_CONTENT_BRANCH` from above. 
 Only code and README changes will be picked up after committing. 
 If you need to make changes to the directory structure (like adding an exercise)
 and/or `config.json`, you will need to use the following commands to rebuild
