@@ -216,7 +216,6 @@ Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile)
 The development environment uses the [v3 repository](https://github.com/exercism/v3) as its source for track contents, such as its exercises, concepts and documentation. 
 
 If you are using the development environment to work on a specific track, replace the v3 repository with the track you are working on. 
-`Go` is used in the following examples. 
 Currently, the database seeds contain only the ruby track, so accessing your track's content via the ruby track links/URLs is the easiest way to load your track's data to the local website. 
 Additionally, if you do seed/instantiate other tracks, they will all be associated with the `GIT_CONTENT_REPO` that you specify. 
 At some point in the future, the dev env will be upgraded to allow you to specify a repo for any track (and only that track).
