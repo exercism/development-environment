@@ -38,7 +38,7 @@ services:
     image: exercism/website
     stop_grace_period: 1s
     build:
-      context: ../v3-website
+      context: ../website
       dockerfile: dev.Dockerfile
     depends_on:
       - mysql
@@ -56,7 +56,7 @@ services:
       - 9999:3035
       - 9998:3334
     volumes:
-      - ../v3-website:/usr/src/app
+      - ../website:/usr/src/app
       - "./tmp/exercism:/tmp/exercism"
       - /usr/src/app/node_modules
       - type: tmpfs
