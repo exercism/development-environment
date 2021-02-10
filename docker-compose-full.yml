@@ -166,7 +166,7 @@ services:
       - 8080:8080
 
   portainer:
-    image: portainer/portainer-ce:2.0.0-alpine
+    image: portainer/portainer-ce:2.1.1-alpine
     command: -H unix:///var/run/docker.sock
     ports:
       - 9000:9000
