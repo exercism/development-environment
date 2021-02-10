@@ -16,7 +16,7 @@ help() {
 
 detect_and_print_available_scripts() {
     # iterate over the directories in the parent directory, which should be
-    # exercism repositories like v3-website, tooling-orchestrator, etc.
+    # exercism repositories like website, tooling-orchestrator, etc.
     find .. -maxdepth 1 -mindepth 1 -type d | sort | while read repo_dir; do
         docker_scripts_dir="$repo_dir/scripts/docker"
 
@@ -29,7 +29,7 @@ detect_and_print_available_scripts() {
         # iterate over all the files in the repo's scripts/docker directory
         find $docker_scripts_dir -maxdepth 1 -mindepth 1 -type f | sort | while read script_file; do
             if [ $print_service ]; then
-                echo "- $(basename ${repo_dir/v3-website/website})"
+                echo "- $(basename ${repo_dir})"
                 unset print_service
             fi
 
@@ -44,14 +44,7 @@ run_script() {
         exit
     fi
 
-    # The v3-website directory is different from the container name
-    if [ $service = "website" ]; then
-        service_directory="v3-website"
-    else
-        service_directory=$service
-    fi
-
-    script_path="../$service_directory/scripts/docker/$script"
+    script_path="../$service/scripts/docker/$script"
 
     if [ ! -f $script_path ]; then
         echo "Could not find the '$script' script for the '$service' service."
