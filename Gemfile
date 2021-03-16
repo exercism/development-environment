@@ -13,4 +13,4 @@ gem 'rubocop-minitest'
 gem 'rubocop-performance'
 
 # We use this to assertain the right version in the Dockerfile
-gem 'exercism-config', '0.61.0'
+gem 'exercism-config', '0.62.0'
