@@ -30,7 +30,7 @@ RUN [[ -z "${EXERCISM_CONFIG_VERSION}" ]] && \
     gem install exercism-config -v ${EXERCISM_CONFIG_VERSION}
 
 # Oops, this gem is confused about whether it's needed or not.
-RUN gem install aws-sdk-s3
+RUN gem install aws-sdk-s3 redis
 
 #############
 ## Stage 2 ##
