@@ -14,15 +14,15 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Ruby
-        uses: actions/setup-ruby@5f29a1cd8dfebf420691c4c9a0e832e2fae5a526
+        uses: ruby/setup-ruby@b161cb92f0e2f28d992f04f38fff204d84132c47 # 1.71.0
         with:
           ruby-version: 2.6.6
 
       - name: Install gems
         run: |
-          gem install rubocop
-          gem install rubocop-minitest
-          gem install rubocop-performance
+          gem install rubocop -v 1.15.0
+          gem install rubocop-minitest -v 0.12.1
+          gem install rubocop-performance -v 1.11.3
 
       - name: Run Rubocop
         run: rubocop --except Metrics
