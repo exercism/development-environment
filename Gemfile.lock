@@ -24,7 +24,7 @@ GEM
     aws-sigv4 (1.2.3)
       aws-eventstream (~> 1, >= 1.0.2)
     concurrent-ruby (1.1.8)
-    exercism-config (0.68.0)
+    exercism-config (0.69.0)
       aws-sdk-dynamodb (~> 1.0)
       aws-sdk-secretsmanager (~> 1.0)
       mandate
@@ -67,7 +67,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
-  exercism-config (= 0.68.0)
+  exercism-config (= 0.69.0)
   rubocop
   rubocop-minitest
   rubocop-performance

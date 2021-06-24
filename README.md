@@ -217,30 +217,54 @@ Each time you change the Dockerfile or dependencies it mounts (e.g. the Gemfile)
 
 The development environment uses the track repositories (e.g. [Ruby](https://github.com/exercism/ruby)) as its source for track contents, such as its exercises, concepts and documentation.
 
-If you are using the development environment to work on a specific track, you can instruct the website to use a specific repository (e.g. a local fork) rather than downloading the default repositories from GitHub. 
+If you are using the development environment to work on a specific track, you can instruct the website to use a specific repository (e.g. a local fork) rather than downloading the default repositories from GitHub.
 Currently, the database seeds contain only the Ruby track, so accessing your track's content via the Ruby track links/URLs is the easiest way to load your track's data to the local website (e.g. http://local.exercism.io/tracks/ruby)
-Additionally, if you do seed/instantiate other tracks, they will all be associated with the `GIT_CONTENT_REPO` that you specify. 
+Additionally, if you do seed/instantiate other tracks, they will all be associated with the `GIT_CONTENT_REPO` that you specify.
 At some point in the future, the dev env will be upgraded to allow you to specify a repo for any track (and only that track).
 
-These are three environment variables used to customize the Git integration:
+These are three environment variables you can specify in your `stack.yml` that are used to customize the Git integration for the `website` component:
 
 - `GIT_CONTENT_REPO`: the Git repository to clone. You can use this to clone a fork (e.g. `https://github.com/me/go`) or a repository on the `website` container filesystem (e.g. `file:///usr/me/go`). If not specified, track repositories (e.g. `https://github.com/exercism/ruby`) are used.
 - `GIT_CONTENT_BRANCH`: the branch to checkout after cloning. If not specified, `main` is used.
 - `GIT_ALWAYS_FETCH_ORIGIN`: indicates if a `git fetch` runs each time information is retrieved from Git. If not specified, `true` is used.
 
-If you use a repo on the `website` container filesystem, you still need to commit your changes for them to be picked up by the website. 
-Your branch will also need to match the `GIT_CONTENT_BRANCH` from above. 
-Only code and README changes will be picked up after committing. 
+Here is an example:
+
+```yaml
+website:
+  environment:
+    GIT_CONTENT_REPO: "https://github.com/me/go"
+    GIT_CONTENT_BRANCH: "my-branch"
+    GIT_ALWAYS_FETCH_ORIGIN: false
+    # Other environment variables ...
+```
+
+If you use a repo on the `website` container's filesystem, you still need to commit your changes for them to be picked up by the website.
+Your branch will also need to match the `GIT_CONTENT_BRANCH` from above.
+Only code and README changes will be picked up after committing.
 If you need to make changes to the directory structure (like adding an exercise)
 and/or `config.json`, you will need to use the following commands to rebuild
-your environment: 
+your environment:
 
 ```bash
 docker-compose --remove-orphans down
-rm -rf tmp/exercism/* 
+rm -rf tmp/exercism/*
 bin/start --pull
 ```
 
+### Working with teams
+
+The development environment keeps track of its teams in the https://github.com/fake-exercism organization, to prevent mutations to the actual Exercism teams.
+If you'd like to use your own organization, specify the `GITHUB_ORGANIZATION` environment variable for the `website` component in your `stack.yml` file.
+
+Here is an example:
+
+```yaml
+website:
+  environment:
+    GITHUB_ORGANIZATION: "my-exercism-test-org"
+    # Other environment variables ...
+```
 
 ## FAQs?
 
@@ -271,10 +295,10 @@ Error: The following directories are not writable by your user:
 ### I'm on Mac and the site doesn't load and/or is super slow
 
 There are two likely scenarios here. The first thing to do is just wait longer.
-After running `bin/start --pull`, node may take 10 minutes or more to compile all of the javascript and css. 
-If this fails, make sure you have allocated at least 8GB of memory to your docker containers (sorry `¯\_(ツ)_/¯`). 
+After running `bin/start --pull`, node may take 10 minutes or more to compile all of the javascript and css.
+If this fails, make sure you have allocated at least 8GB of memory to your docker containers (sorry `¯\_(ツ)_/¯`).
 
-Secondly, if you have mounted a git repo from your local filesystem, the Docker for Mac project has multiple long standing issues with mount performance. 
+Secondly, if you have mounted a git repo from your local filesystem, the Docker for Mac project has multiple long standing issues with mount performance.
 They are (hopefully) [working on them](https://github.com/docker/roadmap/issues/7).
 The best option is to shell into the website container and manually clone your repo there:
 
@@ -282,10 +306,10 @@ The best option is to shell into the website container and manually clone your r
 bin/shell website
 git clone https://github.com/exercism/go.git /usr/src/go
 ```
-Keep in mind, you'll need to re-run this step whenever you do a `docker-compose down`.
-It may be preferable to edit code on your local machine and push up to github in order to see your changes. 
-We realize that neither option is ideal and we will work on making the development experience better as V3 becomes more mature. 
 
+Keep in mind, you'll need to re-run this step whenever you do a `docker-compose down`.
+It may be preferable to edit code on your local machine and push up to github in order to see your changes.
+We realize that neither option is ideal and we will work on making the development experience better as V3 becomes more mature.
 
 ## Stuck?
 
