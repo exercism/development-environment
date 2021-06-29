@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-service=$1
+service="${1:-website}"
 
 help() {
     echo "shell [service]"
