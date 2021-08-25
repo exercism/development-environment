@@ -226,6 +226,7 @@ These are three environment variables you can specify in your `stack.yml` that a
 
 - `GIT_CONTENT_REPO`: the Git repository to clone. You can use this to clone a fork (e.g. `https://github.com/me/go`) or a repository on the `website` container filesystem (e.g. `file:///usr/me/go`). If not specified, track repositories (e.g. `https://github.com/exercism/ruby`) are used.
 - `GIT_CONTENT_BRANCH`: the branch to checkout after cloning. If not specified, `main` is used.
+- `GIT_DOCS_BRANCH`: the branch to checkout after cloning the docs. If not specified, `main` is used.
 - `GIT_ALWAYS_FETCH_ORIGIN`: indicates if a `git fetch` runs each time information is retrieved from Git. If not specified, `true` is used.
 
 Here is an example:
