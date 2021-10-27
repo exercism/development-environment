@@ -127,11 +127,6 @@ services:
     ports:
       - 9200:9200
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.10.2
-    ports:
-      - 5601:5601
-
   # admin containers
   adminer:
     image: adminer:4.8.1-standalone
