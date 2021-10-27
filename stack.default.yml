@@ -1,14 +1,13 @@
 enabled:
   # aws, redis, startup
+  - application
   - core_services
-  - website
   - tooling
   # disable to save RAM if you don't use portainer or adminer much
   - admin
   - analyzers
   - test-runners
   - representers
-  - language-servers
   # add any specific components you'd like to work with here such
   # as specific tracks runners/analyzers, etc.
   - csharp-test-runner
@@ -44,9 +43,12 @@ configure:
   #     - BOOGER=321
 
 groups:
+  application:
+    - website
   core_services:
     - setup
     - redis
+    - mysql
     - aws
     - elasticsearch
   admin:

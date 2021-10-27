@@ -1,5 +1,91 @@
 version: "2.4"
 services:
+  # application containers
+  website:
+    image: exercism/website
+    stop_grace_period: 1s
+    build:
+      context: ../website
+      dockerfile: dev.Dockerfile
+    depends_on:
+      - mysql
+      - redis
+      - aws
+      - setup
+    environment:
+      - LANGUAGE_SERVER_HOST=ws://local.exercism.io:3023
+      - DB_HOST=mysql
+      - EXERCISM_ENV=development
+      - EXERCISM_DOCKER=true
+      - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
+    ports:
+      - 3020:3020
+      - 9999:3035
+      - 9998:3334
+    volumes:
+      - ../website:/usr/src/app
+      - "./tmp/exercism:/tmp/exercism"
+      - /usr/src/app/node_modules
+      - type: tmpfs
+        target: /usr/src/app/tmp
+
+  # tooling containers
+  setup:
+    image: exercism/setup
+    mem_limit: "250m"
+    build:
+      context: ./setup
+      dockerfile: dev.Dockerfile
+    depends_on:
+      - aws
+    environment:
+      - EXERCISM_DOCKER=true
+      - EXERCISM_ENV=development
+
+  tooling-orchestrator:
+    image: exercism/tooling-orchestrator
+    mem_limit: "250m"
+    build:
+      context: ../tooling-orchestrator
+      dockerfile: dev.Dockerfile
+    depends_on:
+      - setup
+    ports:
+      - 3021:3021
+    environment:
+      - EXERCISM_ENV=development
+      - EXERCISM_DOCKER=true
+    volumes:
+      - ../tooling-orchestrator:/usr/src/app
+
+  tooling-invoker:
+    image: exercism/tooling-invoker
+    mem_limit: "250m"
+    build:
+      context: ../tooling-invoker
+      dockerfile: dev.Dockerfile
+    depends_on:
+      - setup
+      - tooling-orchestrator
+    environment:
+      - EXERCISM_ENV=development
+      - EXERCISM_DOCKER=true
+      - EXERCISM_INVOKE_STATEGY=local-webserver
+    volumes:
+      - ../tooling-invoker:/usr/src/app
+      - "./tmp/exercism:/tmp/exercism"
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  generic-tooling:
+    image: exercism/generic-tooling-image
+    entrypoint: ["echo", "Ready to run..."]
+    build:
+      context: ../generic-tooling-build-context
+      dockerfile: Dockerfile
+    volumes:
+      - ../generic-tooling-source:/opt/generic-tooling-target
+
+  # core_services containers
   mysql:
     image: mysql:5.7
     mem_limit: "1g"
@@ -46,89 +132,7 @@ services:
     ports:
       - 5601:5601
 
-  setup:
-    image: exercism/setup
-    mem_limit: "250m"
-    build:
-      context: ./setup
-      dockerfile: dev.Dockerfile
-    depends_on:
-      - aws
-    environment:
-      - EXERCISM_DOCKER=true
-      - EXERCISM_ENV=development
-
-  website:
-    image: exercism/website
-    stop_grace_period: 1s
-    build:
-      context: ../website
-      dockerfile: dev.Dockerfile
-    depends_on:
-      - mysql
-      - redis
-      - aws
-      - setup
-    environment:
-      - LANGUAGE_SERVER_HOST=ws://local.exercism.io:3023
-      - DB_HOST=mysql
-      - EXERCISM_ENV=development
-      - EXERCISM_DOCKER=true
-      - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
-    ports:
-      - 3020:3020
-      - 9999:3035
-      - 9998:3334
-    volumes:
-      - ../website:/usr/src/app
-      - "./tmp/exercism:/tmp/exercism"
-      - /usr/src/app/node_modules
-      - type: tmpfs
-        target: /usr/src/app/tmp
-
-  tooling-orchestrator:
-    image: exercism/tooling-orchestrator
-    mem_limit: "250m"
-    build:
-      context: ../tooling-orchestrator
-      dockerfile: dev.Dockerfile
-    depends_on:
-      - setup
-    ports:
-      - 3021:3021
-    environment:
-      - EXERCISM_ENV=development
-      - EXERCISM_DOCKER=true
-    volumes:
-      - ../tooling-orchestrator:/usr/src/app
-
-  tooling-invoker:
-    image: exercism/tooling-invoker
-    mem_limit: "250m"
-    build:
-      context: ../tooling-invoker
-      dockerfile: dev.Dockerfile
-    depends_on:
-      - setup
-      - tooling-orchestrator
-    environment:
-      - EXERCISM_ENV=development
-      - EXERCISM_DOCKER=true
-      - EXERCISM_INVOKE_STATEGY=local-webserver
-    volumes:
-      - ../tooling-invoker:/usr/src/app
-      - "./tmp/exercism:/tmp/exercism"
-      - /var/run/docker.sock:/var/run/docker.sock
-
-  generic-tooling:
-    image: exercism/generic-tooling-image
-    entrypoint: ["echo", "Ready to run..."]
-    build:
-      context: ../generic-tooling-build-context
-      dockerfile: Dockerfile
-    volumes:
-      - ../generic-tooling-source:/opt/generic-tooling-target
-
+  # admin containers
   adminer:
     image: adminer:4.8.1-standalone
     depends_on:
@@ -137,6 +141,11 @@ services:
       ADMINER_DEFAULT_SERVER: mysql
     ports:
       - 8080:8080
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.10.2
+    ports:
+      - 5601:5601
 
   portainer:
     image: portainer/portainer-ce:2.9.2-alpine
