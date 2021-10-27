@@ -181,7 +181,7 @@ services:
       - ../language-servers:/opt/exercism/csharp-language-server/current
 
   adminer:
-    image: adminer:4.7.7-standalone
+    image: adminer:4.8.1-standalone
     depends_on:
       - mysql
     environment:
@@ -190,7 +190,7 @@ services:
       - 8080:8080
 
   portainer:
-    image: portainer/portainer-ce:2.1.1-alpine
+    image: portainer/portainer-ce:2.9.2-alpine
     command: -H unix:///var/run/docker.sock
     ports:
       - 9000:9000
