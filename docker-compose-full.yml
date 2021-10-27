@@ -12,11 +12,11 @@ services:
     mem_limit: "500m"
 
   aws:
-    image: localstack/localstack:0.12.3
+    image: localstack/localstack:0.12.19.1
     mem_limit: "500m"
     environment:
       EDGE_PORT: "3040"
-      SERVICES: "s3,dynamodb,secretsmanager"
+      SERVICES: "s3,dynamodb,secretsmanager,es"
       HOSTNAME: "aws"
       HOSTNAME_EXTERNAL: "aws"
     ports:
