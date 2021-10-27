@@ -48,9 +48,11 @@ groups:
     - setup
     - redis
     - aws
+    - elasticsearch
   admin:
     - adminer
     - portainer
+    - kibana
   tooling:
     - tooling-invoker
     - tooling-orchestrator
