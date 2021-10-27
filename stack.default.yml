@@ -56,7 +56,6 @@ groups:
   tooling:
     - tooling-invoker
     - tooling-orchestrator
-    - language-server-proxy
   analyzers:
     - none
   test-runners:
