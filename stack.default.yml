@@ -1,16 +1,14 @@
 enabled:
-  # aws, redis, startup
   - application
-  - core_services
-  - tooling
-  # disable to save RAM if you don't use portainer or adminer much
-  - admin
+  - services
   - analyzers
   - test-runners
   - representers
-  # add any specific components you'd like to work with here such
-  # as specific tracks runners/analyzers, etc.
-  - csharp-test-runner
+
+  # disable to save RAM if you don't use portainer or adminer much
+  - admin
+
+  # add any additional components you'd like to start here
 
 configure:
   # setup:
@@ -44,20 +42,19 @@ configure:
 
 groups:
   application:
-    - website
-  core_services:
     - setup
-    - redis
-    - mysql
-    - aws
-    - elasticsearch
-  admin:
-    - adminer
-    - portainer
-    - kibana
-  tooling:
     - tooling-invoker
     - tooling-orchestrator
+    - website
+  services:
+    - aws
+    - elasticsearch
+    - mysql
+    - redis
+  admin:
+    - adminer
+    - kibana
+    - portainer
   analyzers:
     - none
   test-runners:

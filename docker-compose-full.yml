@@ -29,7 +29,6 @@ services:
       - type: tmpfs
         target: /usr/src/app/tmp
 
-  # tooling containers
   setup:
     image: exercism/setup
     mem_limit: "250m"
@@ -85,18 +84,7 @@ services:
     volumes:
       - ../generic-tooling-source:/opt/generic-tooling-target
 
-  # core_services containers
-  mysql:
-    image: mysql:5.7
-    mem_limit: "1g"
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_ROOT_HOST: "%"
-
-  redis:
-    image: redis
-    mem_limit: "500m"
-
+  # services containers
   aws:
     image: localstack/localstack:0.12.19.1
     mem_limit: "500m"
@@ -126,6 +114,17 @@ services:
       - elasticsearch:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
+
+  mysql:
+    image: mysql:5.7
+    mem_limit: "1g"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: "%"
+
+  redis:
+    image: redis
+    mem_limit: "500m"
 
   # admin containers
   adminer:
