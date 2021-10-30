@@ -1,4 +1,4 @@
-**NOTE: This repository is part of Exercism v3 (launch target Q1 2021). It is not applicable for the current version of Exercism.**
+**NOTE: This repository is part of the lastest version of Exercism, v3. It is not applicable for the older versions of Exercism.**
 
 ---
 
