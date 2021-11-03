@@ -48,12 +48,12 @@ groups:
     - website
   services:
     - aws
-    - elasticsearch
+    - opensearch
     - mysql
     - redis
   admin:
     - adminer
-    - kibana
+    - opensearch-dashboards
     - portainer
   analyzers:
     - none

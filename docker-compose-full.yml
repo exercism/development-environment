@@ -90,30 +90,32 @@ services:
     mem_limit: "500m"
     environment:
       EDGE_PORT: "3040"
-      SERVICES: "s3,dynamodb,secretsmanager,es"
+      SERVICES: "s3,dynamodb,secretsmanager"
       HOSTNAME: "aws"
       HOSTNAME_EXTERNAL: "aws"
     ports:
       - 3040:3040
-      - 4566:4566
-      - 4571:4571
 
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.2
-    container_name: elasticsearch
-    environment:
-      - node.name=elasticsearch
-      - cluster.name=es-docker-cluster
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - elasticsearch:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
+  opensearch:
+   image: opensearchproject/opensearch:1.1.0
+   environment:
+     - node.name=opensearch
+     - cluster.name=opensearch-cluster
+     - discovery.type=single-node
+     - bootstrap.memory_lock=true
+     - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+   ulimits:
+     memlock:
+       soft: -1
+       hard: -1
+     nofile:
+       soft: 65536
+       hard: 65536
+   ports:
+     - 9200:9200
+     - 9600:9600
+   volumes:
+     - opensearch:/usr/share/opensearch/data
 
   mysql:
     image: mysql:5.7
@@ -136,10 +138,14 @@ services:
     ports:
       - 8080:8080
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.10.2
-    ports:
-      - 5601:5601
+  opensearch-dashboards:
+   image: opensearchproject/opensearch-dashboards:1.1.0
+   depends_on:
+     - opensearch
+   ports:
+     - 5601:5601
+   environment:
+     OPENSEARCH_HOSTS: '["https://opensearch:9200"]' # must be a string with no spaces when specified as an environment variable
 
   portainer:
     image: portainer/portainer-ce:2.9.2-alpine
@@ -150,5 +156,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
 volumes:
-  elasticsearch:
+  opensearch:
     driver: local
