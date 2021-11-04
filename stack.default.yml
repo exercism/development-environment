@@ -18,17 +18,16 @@ configure:
   #   source: true
 
   website:
-    # build: true
-    # source: true
-    # change these (and ports below) to remap outside service ports
-    environment:
-      WEBPACKER_DEV_SERVER_PUBLIC: "local.exercism.io:9999"
-      CABLE_URL: "ws://local.exercism.io:9998/cable"
-    # reconfigure the external ports to avoid conflicts
-    ports:
-      - 3020:3020 # rails, 3020 internal
-      - 9999:3035 # webpack, 3035 internal
-      - 9998:3334 # cable, 3334 internal
+  # build: true
+  # source: true
+  # you can add custom environment settings
+  # environment:
+  #   GIT_CONTENT_REPO:
+  #   GIT_CONTENT_BRANCH:
+  #   GIT_DOCS_BRANCH:
+  #   GIT_ALWAYS_FETCH_ORIGIN:
+  #   GITHUB_ACCESS_TOKEN:
+  #   GITHUB_ORGANIZATION:
 
   tooling-invoker:
     environment:
