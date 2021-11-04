@@ -20,6 +20,7 @@ services:
       - OPENSEARCH_HOST=https://opensearch:9200
       - OPENSEARCH_USER=admin
       - OPENSEARCH_PASSWORD=admin
+      - OPENSEARCH_VERIFY_SSL=false
       - DB_HOST=mysql
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
