@@ -122,6 +122,8 @@ services:
   redis:
     image: redis
     mem_limit: "500m"
+    ports:
+      - 6379:6379
 
   # admin containers
   adminer:
