@@ -1,37 +1,33 @@
 enabled:
-  # aws, redis, startup
-  - core_services
-  - website
-  - tooling
-  # disable to save RAM if you don't use portainer or adminer much
-  - admin
+  - application
+  - services
   - analyzers
   - test-runners
   - representers
-  - language-servers
-  # add any specific components you'd like to work with here such
-  # as specific tracks runners/analyzers, etc.
-  - csharp-test-runner
+
+  # disable to save RAM if you don't use portainer or adminer much
+  - admin
+
+  # add any additional components you'd like to start here
 
 configure:
   # setup:
   #   build:
   #     args:
-  #       exercism_config_version: 0.73.0
+  #       exercism_config_version: 0.77.0
   #   source: true
 
   website:
-    # build: true
-    # source: true
-    # change these (and ports below) to remap outside service ports
-    environment:
-      WEBPACKER_DEV_SERVER_PUBLIC: "local.exercism.io:9999"
-      CABLE_URL: "ws://local.exercism.io:9998/cable"
-    # reconfigure the external ports to avoid conflicts
-    ports:
-      - 3020:3020 # rails, 3020 internal
-      - 9999:3035 # webpack, 3035 internal
-      - 9998:3334 # cable, 3334 internal
+  # build: true
+  # source: true
+  # you can add custom environment settings
+  # environment:
+  #   GIT_CONTENT_REPO:
+  #   GIT_CONTENT_BRANCH:
+  #   GIT_DOCS_BRANCH:
+  #   GIT_ALWAYS_FETCH_ORIGIN:
+  #   GITHUB_ACCESS_TOKEN:
+  #   GITHUB_ORGANIZATION:
 
   tooling-invoker:
     environment:
@@ -44,17 +40,20 @@ configure:
   #     - BOOGER=321
 
 groups:
-  core_services:
+  application:
     - setup
-    - redis
-    - aws
-  admin:
-    - adminer
-    - portainer
-  tooling:
     - tooling-invoker
     - tooling-orchestrator
-    - language-server-proxy
+    - website
+  services:
+    - aws
+    - opensearch
+    - mysql
+    - redis
+  admin:
+    - adminer
+    - opensearch-dashboards
+    - portainer
   analyzers:
     - none
   test-runners:
