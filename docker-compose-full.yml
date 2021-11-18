@@ -113,7 +113,7 @@ services:
       - opensearch:/usr/share/opensearch/data
 
   mysql:
-    image: mysql:5.7
+    image: mysql:5.8
     mem_limit: "1g"
     environment:
       MYSQL_ROOT_PASSWORD: password
