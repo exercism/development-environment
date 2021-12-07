@@ -32,6 +32,7 @@ services:
     volumes:
       - ../website:/usr/src/app
       - "./tmp/exercism:/tmp/exercism"
+      - "./screenshots:/usr/src/app/tmp/screenshots"
       - /usr/src/app/node_modules
       - type: tmpfs
         target: /usr/src/app/tmp
