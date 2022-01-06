@@ -14,7 +14,7 @@ configure:
   # setup:
   #   build:
   #     args:
-  #       exercism_config_version: 0.77.0
+  #       exercism_config_version: 0.81.0
   #   source: true
 
   website:
