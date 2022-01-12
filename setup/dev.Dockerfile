@@ -1,7 +1,7 @@
 #############
 ## Stage 1 ##
 #############
-FROM ruby:2.6.6-alpine3.12 as gembuilder
+FROM ruby:3.1.0-alpine3.15 as gembuilder
 
 RUN apk add --update git build-base cmake
 
@@ -35,7 +35,7 @@ RUN gem install aws-sdk-s3 redis
 #############
 ## Stage 2 ##
 #############
-FROM ruby:2.6.6-alpine3.12 as final
+FROM ruby:3.1.0-alpine3.15 as final
 ARG exercism_config_version
 
 ENV EXERCISM_CONFIG_VERSION=${exercism_config_version}
