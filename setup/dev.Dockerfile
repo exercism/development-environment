@@ -41,7 +41,7 @@ ARG exercism_config_version
 ENV EXERCISM_CONFIG_VERSION=${exercism_config_version}
 
 # Copy over the binary gems from the gembuilder
-COPY --from=gembuilder /usr/local/lib/ruby/gems/2.6.0 /usr/local/lib/ruby/gems/2.6.0
+COPY --from=gembuilder /usr/local/lib/ruby/gems/3.1.0 /usr/local/lib/ruby/gems/3.1.0
 
 # Multiple sequential copies from the same container do not work.
 # https://github.com/moby/moby/issues/37965#issuecomment-426853382

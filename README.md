@@ -284,10 +284,10 @@ If you want to work on the various components of the website itself, then this i
 Mac OSX comes with a system ruby pre-installed. That can cause problems when using this, or other Ruby applications. If you're on Mac, and get one of the following errors, checkout [this troubleshooting issue](https://github.com/exercism/development-environment/issues/30)
 
 ```
-/System/Library/Frameworks/Ruby.framework/Versions/2.3/usr/bin/ruby: bad interpreter: No such file or directory
+/System/Library/Frameworks/Ruby.framework/Versions/3.1/usr/bin/ruby: bad interpreter: No such file or directory
 
 ERROR: While executing gem ... (Gem::FilePermissionError)
-You don't have write permissions for the /Library/Ruby/Gems/2.6.0 directory.
+You don't have write permissions for the /Library/Ruby/Gems/3.1.0 directory.
 
 Error: The following directories are not writable by your user:
 /usr/local/lib
