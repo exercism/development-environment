@@ -28,7 +28,6 @@ services:
       - 3334:3334
     volumes:
       - ../website:/usr/src/app
-      - ../../mandate:/usr/src/mandate
       - "./tmp/exercism:/tmp/exercism"
       - "./screenshots:/usr/src/app/tmp/screenshots"
       - /usr/src/app/node_modules
