@@ -15,8 +15,6 @@ services:
       - setup
     environment:
       - LANGUAGE_SERVER_HOST=ws://local.exercism.io:3023
-      - WEBPACKER_DEV_SERVER_PUBLIC=local.exercism.io:9999
-      - CABLE_URL=ws://local.exercism.io:9998/cable
       - OPENSEARCH_HOST=https://opensearch:9200
       - OPENSEARCH_USER=admin
       - OPENSEARCH_PASSWORD=admin
@@ -27,10 +25,10 @@ services:
       - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
     ports:
       - 3020:3020
-      - 9999:3035
-      - 9998:3334
+      - 3334:3334
     volumes:
       - ../website:/usr/src/app
+      - ../../mandate:/usr/src/mandate
       - "./tmp/exercism:/tmp/exercism"
       - "./screenshots:/usr/src/app/tmp/screenshots"
       - /usr/src/app/node_modules
