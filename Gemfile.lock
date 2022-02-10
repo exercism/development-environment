@@ -1,16 +1,15 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.3.2)
+    activesupport (7.0.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     ast (2.4.2)
     aws-eventstream (1.2.0)
-    aws-partitions (1.545.0)
-    aws-sdk-core (3.125.1)
+    aws-partitions (1.547.0)
+    aws-sdk-core (3.125.2)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
@@ -23,47 +22,47 @@ GEM
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.4.0)
       aws-eventstream (~> 1, >= 1.0.2)
-    concurrent-ruby (1.1.8)
+    concurrent-ruby (1.1.9)
     exercism-config (0.81.0)
       aws-sdk-dynamodb (~> 1.0)
       aws-sdk-secretsmanager (~> 1.0)
       mandate
       zeitwerk
-    i18n (1.8.10)
+    i18n (1.8.11)
       concurrent-ruby (~> 1.0)
-    jmespath (1.4.0)
+    jmespath (1.5.0)
     mandate (1.0.0)
-    minitest (5.14.4)
-    parallel (1.20.1)
-    parser (3.0.1.1)
+    minitest (5.15.0)
+    parallel (1.21.0)
+    parser (3.1.0.0)
       ast (~> 2.4.1)
-    rainbow (3.0.0)
-    regexp_parser (2.1.1)
+    rainbow (3.1.1)
+    regexp_parser (2.2.0)
     rexml (3.2.5)
-    rubocop (1.15.0)
+    rubocop (1.24.1)
       parallel (~> 1.10)
       parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
-      rubocop-ast (>= 1.5.0, < 2.0)
+      rubocop-ast (>= 1.15.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 3.0)
-    rubocop-ast (1.5.0)
+    rubocop-ast (1.15.1)
       parser (>= 3.0.1.1)
-    rubocop-minitest (0.12.1)
+    rubocop-minitest (0.17.0)
       rubocop (>= 0.90, < 2.0)
-    rubocop-performance (1.11.3)
+    rubocop-performance (1.13.1)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
     ruby-progressbar (1.11.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (2.0.0)
-    zeitwerk (2.4.2)
+    unicode-display_width (2.1.0)
+    zeitwerk (2.5.3)
 
 PLATFORMS
-  ruby
+  x86_64-linux
 
 DEPENDENCIES
   activesupport
@@ -74,4 +73,4 @@ DEPENDENCIES
   zeitwerk
 
 BUNDLED WITH
-   2.2.32
+   2.3.4
