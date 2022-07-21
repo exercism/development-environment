@@ -44,7 +44,7 @@ services:
       EXERCISM_ENV: development
       EXERCISM_DOCKER: 'true'
   website:
-    image: exercism/exercism-website
+    image: exercism/website
     stop_grace_period: 1s
     depends_on:
     - mysql
@@ -67,7 +67,7 @@ services:
     - 3020:3020
     - 3334:3334
     volumes:
-    - "../website:/usr/src/app"
+    - "../exercism-website:/usr/src/app"
     - "./tmp/exercism:/tmp/exercism"
     - "./screenshots:/usr/src/app/tmp/screenshots"
     - "/usr/src/app/node_modules"
