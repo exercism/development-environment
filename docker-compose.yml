@@ -1,0 +1,133 @@
+---
+version: '2.4'
+services:
+  setup:
+    image: exercism/setup
+    mem_limit: 250m
+    depends_on:
+    - aws
+    environment:
+      EXERCISM_DOCKER: 'true'
+      EXERCISM_ENV: development
+  aws:
+    image: localstack/localstack:0.12.19.1
+    mem_limit: 500m
+    environment:
+      EDGE_PORT: '3040'
+      SERVICES: s3,dynamodb,secretsmanager
+      HOSTNAME: aws
+      HOSTNAME_EXTERNAL: aws
+    ports:
+    - 3040:3040
+  tooling-invoker:
+    image: exercism/tooling-invoker
+    mem_limit: 250m
+    depends_on:
+    - setup
+    - tooling-orchestrator
+    environment:
+      EXERCISM_ENV: development
+      EXERCISM_DOCKER: 'true'
+      EXERCISM_INVOKE_STATEGY: local-webserver
+      EXERCISM_DEV_ENV_DIR: "/home/prog_2_austral/exercism/development-environment"
+    volumes:
+    - "./tmp/exercism:/tmp/exercism"
+    - "/var/run/docker.sock:/var/run/docker.sock"
+  tooling-orchestrator:
+    image: exercism/tooling-orchestrator
+    mem_limit: 250m
+    depends_on:
+    - setup
+    ports:
+    - 3021:3021
+    environment:
+      EXERCISM_ENV: development
+      EXERCISM_DOCKER: 'true'
+  website:
+    image: exercism/website
+    stop_grace_period: 1s
+    depends_on:
+    - mysql
+    - redis
+    - opensearch
+    - aws
+    - setup
+    environment:
+      LANGUAGE_SERVER_HOST: ws://local.exercism.io:3023
+      OPENSEARCH_HOST: https://opensearch:9200
+      OPENSEARCH_USER: admin
+      OPENSEARCH_PASSWORD: admin
+      OPENSEARCH_VERIFY_SSL: 'false'
+      DB_HOST: mysql
+      EXERCISM_ENV: development
+      EXERCISM_DOCKER: 'true'
+      OVERMIND_SOCKET: "/usr/src/app/tmp/overmind.sock"
+      GIT_CONTENT_REPO: https://github.com/universidad-austral-prog2/prog2
+    ports:
+    - 3020:3020
+    - 3334:3334
+    volumes:
+    - "../website:/usr/src/app"
+    - "./tmp/exercism:/tmp/exercism"
+    - "./screenshots:/usr/src/app/tmp/screenshots"
+    - "/usr/src/app/node_modules"
+    - type: tmpfs
+      target: "/usr/src/app/tmp"
+  mysql:
+    image: mysql:8
+    command: mysqld --default-authentication-plugin=mysql_native_password
+    mem_limit: 1g
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_ROOT_HOST: "%"
+    ports:
+    - 3306:3306
+    volumes:
+      - my-datavolume:/var/lib/mysql
+    restart: always
+  redis:
+    image: redis
+    mem_limit: 500m
+    ports:
+    - 6379:6379
+  opensearch:
+    image: opensearchproject/opensearch:1.1.0
+    environment:
+      discovery.type: single-node
+    ports:
+    - 9200:9200
+  ruby-test-runner:
+    image: exercism/ruby-test-runner
+    entrypoint:
+    - echo
+    - Ready to run...
+  python-test-runner:
+    image: exercism/python-test-runner
+    entrypoint:
+    - echo
+    - Ready to run...
+  adminer:
+    image: adminer:4.8.1-standalone
+    depends_on:
+    - mysql
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    ports:
+    - 8080:8080
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:1.1.0
+    depends_on:
+    - opensearch
+    ports:
+    - 5601:5601
+    environment:
+      OPENSEARCH_HOSTS: https://opensearch:9200
+  portainer:
+    image: portainer/portainer-ce:2.9.2-alpine
+    command: "-H unix:///var/run/docker.sock"
+    ports:
+    - 9000:9000
+    volumes:
+    - "/var/run/docker.sock:/var/run/docker.sock"
+volumes:
+  my-datavolume:
