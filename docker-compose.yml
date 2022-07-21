@@ -44,7 +44,7 @@ services:
       EXERCISM_ENV: development
       EXERCISM_DOCKER: 'true'
   website:
-    image: exercism/website
+    image: exercism/exercism-website
     stop_grace_period: 1s
     depends_on:
     - mysql
