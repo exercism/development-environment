@@ -1,5 +1,4 @@
 node_modules
-docker-compose.yml
 stack.yml
 tmp/
 screenshots/

@@ -30,12 +30,14 @@ mkdir exercism
 
 cd exercism
 
-git clone https://github.com/universidad-austral-prog2/development-environment.git
-git clone https://github.com/universidad-austral-prog2/website
+git clone https://github.com/FacultadDeIngenieria/exercism-development-environment
+git clone https://github.com/FacultadDeIngenieria/exercism-website
 
-cd development-environment
+cd exercism-development-environment
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
+sudo apt-get install unzip
 
 unzip awscliv2.zip
 
