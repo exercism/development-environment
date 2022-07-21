@@ -23,6 +23,7 @@ services:
       - EXERCISM_ENV=development
       - EXERCISM_DOCKER=true
       - OVERMIND_SOCKET=/usr/src/app/tmp/overmind.sock
+      - GIT_CONTENT_REPO=https://github.com/universidad-austral-prog2/prog2
     ports:
       - 3020:3020
       - 3334:3334
@@ -117,6 +118,10 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_ROOT_HOST: "%"
+    ports:
+      - 3306:3306
+    volumes:
+      - my-datavolume:/var/lib/mysql
 
   redis:
     image: redis
@@ -154,3 +159,4 @@ services:
 volumes:
   opensearch:
     driver: local
+  my-datavolume:
