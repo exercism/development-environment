@@ -45,9 +45,10 @@ sudo ./aws/install
 
 sudo docker compose pull
 
-sudo docker tag exercism/python-test-runner  exercism/prog2-test-runner
+sudo docker tag exercism/python-test-runner  exercism/exercism-prog2-track-test-runner
 
 sudo aws --endpoint-url=http://localhost:3040 --no-sign-request s3 mb s3://exercism-v3-submissions
+sudo aws --endpoint-url=http://localhost:3040 --no-sign-request s3 mb s3://exercism-v3-tooling-jobs
 
 sudo docker compose up -d
 

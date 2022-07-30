@@ -2,7 +2,7 @@
 version: '2.4'
 services:
   setup:
-    image: exercism/setup
+    image: exercism/setup:5acbc4f56117fad444ef787f5d199b9f2a4c01eb
     mem_limit: 250m
     depends_on:
     - aws
@@ -10,7 +10,7 @@ services:
       EXERCISM_DOCKER: 'true'
       EXERCISM_ENV: development
   aws:
-    image: localstack/localstack:0.12.19.1
+    image: localstack/localstack:1.0.2
     mem_limit: 500m
     environment:
       EDGE_PORT: '3040'
@@ -20,7 +20,7 @@ services:
     ports:
     - 3040:3040
   tooling-invoker:
-    image: exercism/tooling-invoker
+    image: exercism/tooling-invoker:sha-edd6c66
     mem_limit: 250m
     depends_on:
     - setup
@@ -29,12 +29,13 @@ services:
       EXERCISM_ENV: development
       EXERCISM_DOCKER: 'true'
       EXERCISM_INVOKE_STATEGY: local-webserver
+#      EXERCISM_DEV_ENV_DIR: "/Users/matiasmiodosky/projects/facultad_de_ingieneria/exercism-development-environment"
       EXERCISM_DEV_ENV_DIR: "/home/prog_2_austral/exercism/development-environment"
     volumes:
     - "./tmp/exercism:/tmp/exercism"
     - "/var/run/docker.sock:/var/run/docker.sock"
   tooling-orchestrator:
-    image: exercism/tooling-orchestrator
+    image: exercism/tooling-orchestrator:sha-888fe1b
     mem_limit: 250m
     depends_on:
     - setup
@@ -44,7 +45,7 @@ services:
       EXERCISM_ENV: development
       EXERCISM_DOCKER: 'true'
   website:
-    image: exercism/website
+    image: exercism/website:sha-fbe7164
     stop_grace_period: 1s
     depends_on:
     - mysql
@@ -102,32 +103,10 @@ services:
     - echo
     - Ready to run...
   python-test-runner:
-    image: exercism/python-test-runner
+    image: exercism/python-test-runner:cfac626c70c4bffc89745557d9058c81ba327d08
     entrypoint:
     - echo
     - Ready to run...
-  adminer:
-    image: adminer:4.8.1-standalone
-    depends_on:
-    - mysql
-    environment:
-      ADMINER_DEFAULT_SERVER: mysql
-    ports:
-    - 8080:8080
-  opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:1.1.0
-    depends_on:
-    - opensearch
-    ports:
-    - 5601:5601
-    environment:
-      OPENSEARCH_HOSTS: https://opensearch:9200
-  portainer:
-    image: portainer/portainer-ce:2.9.2-alpine
-    command: "-H unix:///var/run/docker.sock"
-    ports:
-    - 9000:9000
-    volumes:
-    - "/var/run/docker.sock:/var/run/docker.sock"
+
 volumes:
   my-datavolume:
