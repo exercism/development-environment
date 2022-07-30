@@ -10,7 +10,7 @@ services:
       EXERCISM_DOCKER: 'true'
       EXERCISM_ENV: development
   aws:
-    image: localstack/localstack:1.0.2
+    image: localstack/localstack:0.12.19.1
     mem_limit: 500m
     environment:
       EDGE_PORT: '3040'
