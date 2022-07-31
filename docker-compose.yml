@@ -30,7 +30,7 @@ services:
       EXERCISM_DOCKER: 'true'
       EXERCISM_INVOKE_STATEGY: local-webserver
 #      EXERCISM_DEV_ENV_DIR: "/Users/matiasmiodosky/projects/facultad_de_ingieneria/exercism-development-environment"
-      EXERCISM_DEV_ENV_DIR: "/home/prog_2_austral/exercism/development-environment"
+      EXERCISM_DEV_ENV_DIR: "/home/prog_2_austral/exercism/exercism-development-environment"
     volumes:
     - "./tmp/exercism:/tmp/exercism"
     - "/var/run/docker.sock:/var/run/docker.sock"
