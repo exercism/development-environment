@@ -53,3 +53,11 @@ sudo aws --endpoint-url=http://0.0.0.0:3040 --no-sign-request s3 mb s3://exercis
 
 sudo docker compose up -d
 
+
+# create trigger on db
+
+#CREATE TRIGGER confirm_users BEFORE INSERT on users
+ #    for each row if new.confirmed_at is null
+ #    then set new.confirmed_at = now();
+ #    end if;
+

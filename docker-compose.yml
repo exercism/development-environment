@@ -63,7 +63,7 @@ services:
       EXERCISM_ENV: development
       EXERCISM_DOCKER: 'true'
       OVERMIND_SOCKET: "/usr/src/app/tmp/overmind.sock"
-      GIT_CONTENT_REPO: https://github.com/universidad-austral-prog2/prog2
+      GIT_CONTENT_REPO: https://github.com/FacultadDeIngenieria/exercism-prog2-track
     ports:
     - 3020:3020
     - 3334:3334
