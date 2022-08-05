@@ -107,6 +107,30 @@ services:
     entrypoint:
     - echo
     - Ready to run...
+  duckdns:
+    image: maksimstojkovic/duckdns
+    container_name: duckdns
+    environment:
+      - DUCKDNS_TOKEN=${DUCKDNS_TOKEN}
+      - DUCKDNS_DOMAIN=facultaddeingenieria.duckdns.org
+      - DUCKDNS_DELAY=5 #optional
+    restart: unless-stopped
+
+  letsencrypt:
+    image: maksimstojkovic/letsencrypt
+    container_name: letsencrypt
+    volumes:
+      - ./certs:/etc/letsencrypt
+    environment:
+      - DUCKDNS_TOKEN=${DUCKDNS_TOKEN_ENV}
+      - DUCKDNS_DOMAIN=facultaddeingenieria.duckdns.org
+      - LETSENCRYPT_DOMAIN= #optional
+      - LETSENCRYPT_WILDCARD=true #optional
+      - LETSENCRYPT_EMAIL= #optional
+      - TESTING=false #optional
+      - UID=0 #optional
+      - GID=0 #optional
+    restart: unless-stopped
 
 volumes:
   my-datavolume:
